@@ -1,0 +1,2 @@
+export const TOGGLE_MODAL = '@LAYOUT/TOGGLE_MODAL';
+export const TOGGLE_MENU = '@LAYOUT/TOGGLE_MENU';

@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders black L Heading 1`] = `
+.c0 {
+  font-size: 30px;
+  font-family: Lato,sans-serif;
+  color: #000000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+<Heading
+  black={true}
+  bold={false}
+  className="c0"
+  marginBottom={null}
+  marginTop={null}
+  mono={false}
+  size="L"
+  uppercase={false}
+>
+  $
+  L
+</Heading>
+`;
+
+exports[`renders black M Heading 1`] = `
+.c0 {
+  font-size: 17px;
+  font-family: Lato,sans-serif;
+  color: #000000;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+<Heading
+  black={true}
+  bold={false}
+  className="c0"
+  marginBottom={null}
+  marginTop={null}
+  mono={false}
+  size="M"
+  uppercase={false}
+>
+  $
+  M
+</Heading>
+`;
+
+exports[`renders black S Heading 1`] = `
+.c0 {
+  font-size: 15px;
+  font-family: Lato,sans-serif;
+  color: #000000;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+<Heading
+  black={true}
+  bold={false}
+  className="c0"
+  marginBottom={null}
+  marginTop={null}
+  mono={false}
+  size="S"
+  uppercase={false}
+>
+  $
+  S
+</Heading>
+`;
+
+exports[`renders black XL Heading 1`] = `
+.c0 {
+  font-size: 40px;
+  font-family: Lato,sans-serif;
+  color: #000000;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+<Heading
+  black={true}
+  bold={false}
+  className="c0"
+  marginBottom={null}
+  marginTop={null}
+  mono={false}
+  size="XL"
+  uppercase={false}
+>
+  $
+  XL
+</Heading>
+`;

@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Authorization block 1`] = `
+<React.Fragment>
+  <styled.div>
+    <Styled(LinkComponent)
+      onClick={[Function]}
+      size="S"
+      white={true}
+    >
+      LOGIN
+    </Styled(LinkComponent)>
+  </styled.div>
+  <styled.div>
+    <Styled(Button)
+      onClick={[Function]}
+      purple={true}
+      spaced={true}
+    >
+      LOGIN
+    </Styled(Button)>
+  </styled.div>
+</React.Fragment>
+`;
+
+exports[`renders Header for an authorized user 1`] = `
+<React.Fragment>
+  <styled.header>
+    <styled.div
+      flex="start"
+    >
+      <Icon
+        icon="Hamburger"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+    <styled.div>
+      <Link
+        replace={false}
+        to="/"
+      >
+        <Icon
+          icon="Logo"
+          onClick={[Function]}
+          pointer={true}
+          small={false}
+        />
+      </Link>
+    </styled.div>
+    <styled.div
+      flex="end"
+    >
+      <Personal />
+      <Icon
+        icon="Cart"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+  </styled.header>
+  <TopMenu
+    showMenu={false}
+  >
+    <h1>
+      HELLO WORLD
+    </h1>
+  </TopMenu>
+</React.Fragment>
+`;
+
+exports[`renders Header for an unauthorized user 1`] = `
+<React.Fragment>
+  <styled.header>
+    <styled.div
+      flex="start"
+    >
+      <Icon
+        icon="Hamburger"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+    <styled.div>
+      <Link
+        replace={false}
+        to="/"
+      >
+        <Icon
+          icon="Logo"
+          onClick={[Function]}
+          pointer={true}
+          small={false}
+        />
+      </Link>
+    </styled.div>
+    <styled.div
+      flex="end"
+    >
+      <Authorization
+        toggleModal={[Function]}
+      />
+      <Icon
+        icon="Cart"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+  </styled.header>
+  <TopMenu
+    showMenu={false}
+  >
+    <h1>
+      HELLO WORLD
+    </h1>
+  </TopMenu>
+</React.Fragment>
+`;
+
+exports[`renders Personal block 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.div>
+      <Icon
+        icon="Chat"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+    <clickOutside(Dropdown)
+      renderTitle={[Function]}
+    >
+      NOTIFICATIONS!
+    </clickOutside(Dropdown)>
+    <clickOutside(Dropdown)
+      renderTitle={[Function]}
+    >
+      <Option
+        onClick={[Function]}
+      >
+        PROFILE
+      </Option>
+      <Option
+        onClick={[Function]}
+      >
+        SETTINGS
+      </Option>
+      <Option
+        isLogout={true}
+        onClick={[Function]}
+      >
+        LOGOUT
+      </Option>
+    </clickOutside(Dropdown)>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`renders Top Menu 1`] = `
+<React.Fragment>
+  <styled.header>
+    <styled.div
+      flex="start"
+    >
+      <Icon
+        icon="Hamburger"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+    <styled.div>
+      <Link
+        replace={false}
+        to="/"
+      >
+        <Icon
+          icon="Logo"
+          onClick={[Function]}
+          pointer={true}
+          small={false}
+        />
+      </Link>
+    </styled.div>
+    <styled.div
+      flex="end"
+    >
+      <Personal />
+      <Icon
+        icon="Cart"
+        onClick={[Function]}
+        pointer={true}
+        small={true}
+      />
+    </styled.div>
+  </styled.header>
+  <TopMenu
+    showMenu={true}
+  >
+    <h1>
+      HELLO WORLD
+    </h1>
+  </TopMenu>
+</React.Fragment>
+`;

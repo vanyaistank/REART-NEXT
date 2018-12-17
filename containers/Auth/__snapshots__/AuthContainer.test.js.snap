@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles error from sign response 1`] = `
+Object {
+  "email": "The email address and username you have entered is already registered.",
+  "password": null,
+  "username": null,
+}
+`;

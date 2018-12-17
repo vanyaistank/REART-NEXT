@@ -1,0 +1,51 @@
+parser: babel-eslint
+
+extends: [airbnb, plugin:promise/recommended]
+
+plugins: [promise, jest]
+
+env:
+  browser: true
+  node: true
+  jest: true
+
+rules:
+  linebreak-style: off
+  arrow-parens: [error, as-needed]
+  brace-style: [error, 1tbs, {allowSingleLine: true}]
+  indent: [error, tab]
+  no-tabs: 0
+  consistent-return: off
+  max-len: [error, {code: 80, ignoreUrls: true}]
+  comma-dangle: [error, always-multiline]
+  no-plusplus: [error, {allowForLoopAfterthoughts: true}]
+  object-curly-spacing: [error, always]
+  no-underscore-dangle: off
+  no-console: off
+  object-curly-newline: off
+  function-paren-newline: off
+  quotes: [error, single, { allowTemplateLiterals: true }]
+  class-methods-use-this: off
+
+  import/no-extraneous-dependencies: off
+  import/no-unresolved: off
+  import/extensions: off
+
+  react/jsx-indent: [error, tab]
+  react/jsx-indent-props: [error, tab]
+  react/prop-types: [0]
+  react/no-unused-prop-types: off
+  react/prefer-stateless-function: off
+  react/jsx-filename-extension: [0]
+
+  jsx-a11y/anchor-is-valid: off
+
+  promise/prefer-await-to-then: warn
+  promise/prefer-await-to-callbacks: error
+
+  jest/no-disabled-tests: warn
+  jest/no-focused-tests: error
+  jest/no-identical-title: error
+  jest/valid-expect: error
+
+  allowShortCircuit: true

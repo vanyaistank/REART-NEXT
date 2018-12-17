@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Sign In Form with no values 1`] = `
+<Modal
+  handleReset={[Function]}
+  showModal={[Function]}
+  toggleModal={[Function]}
+>
+  <Icon
+    absolute={true}
+    icon="Cancel"
+    onClick={[Function]}
+    pointer={true}
+    right="5"
+    small={true}
+    top="5"
+  />
+  <styled.div
+    justifyContent="center"
+  >
+    <styled.div
+      size={12}
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <styled.div
+          centered={true}
+          marginBottom="50px"
+          size={12}
+        >
+          <Styled(Heading)
+            bold={false}
+            marginBottom={null}
+            marginTop={null}
+            mono={true}
+            size="L"
+            uppercase={true}
+          >
+            sign up
+          </Styled(Heading)>
+          <Styled(Heading)
+            bold={false}
+            marginBottom={null}
+            marginTop={null}
+            mono={true}
+            size="L"
+            uppercase={true}
+          >
+            to re-art
+          </Styled(Heading)>
+        </styled.div>
+        <ColWithMargin>
+          <Styled(Input)
+            key="email"
+            label="email"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          />
+        </ColWithMargin>
+        <ColWithMargin>
+          <Styled(Input)
+            key="username"
+            label="username"
+            name="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="username"
+            type="text"
+          />
+        </ColWithMargin>
+        <ColWithMargin>
+          <Styled(Input)
+            key="password"
+            label="password"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          />
+        </ColWithMargin>
+        <styled.div
+          size={12}
+        >
+          <Styled(Button)
+            dark={true}
+            loading={false}
+            onClick={[Function]}
+            type="submit"
+            width="100%"
+          >
+            SIGN UP
+          </Styled(Button)>
+        </styled.div>
+        <ColWithMargin
+          marginTop="30px"
+        >
+          <Styled(Heading)
+            bold={false}
+            inline={true}
+            lighterGray={true}
+            marginBottom={null}
+            marginTop={null}
+            mono={false}
+            size="S"
+            uppercase={false}
+          >
+            Already have an account?
+              
+          </Styled(Heading)>
+          <Styled(LinkComponent)
+            onClick={[Function]}
+            size="S"
+          >
+            SIGN IN
+          </Styled(LinkComponent)>
+        </ColWithMargin>
+      </form>
+    </styled.div>
+  </styled.div>
+</Modal>
+`;
+
+exports[`renders Sign Up Form with no values 1`] = `
+<Modal
+  handleReset={[Function]}
+  showModal={[Function]}
+  toggleModal={[Function]}
+>
+  <Icon
+    absolute={true}
+    icon="Cancel"
+    onClick={[Function]}
+    pointer={true}
+    right="5"
+    small={true}
+    top="5"
+  />
+  <styled.div
+    justifyContent="center"
+  >
+    <styled.div
+      size={12}
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <styled.div
+          centered={true}
+          marginBottom="50px"
+          size={12}
+        >
+          <Styled(Heading)
+            bold={false}
+            marginBottom={null}
+            marginTop={null}
+            mono={true}
+            size="L"
+            uppercase={true}
+          >
+            sign up
+          </Styled(Heading)>
+          <Styled(Heading)
+            bold={false}
+            marginBottom={null}
+            marginTop={null}
+            mono={true}
+            size="L"
+            uppercase={true}
+          >
+            to re-art
+          </Styled(Heading)>
+        </styled.div>
+        <ColWithMargin>
+          <Styled(Input)
+            key="email"
+            label="email"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          />
+        </ColWithMargin>
+        <ColWithMargin>
+          <Styled(Input)
+            key="username"
+            label="username"
+            name="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="username"
+            type="text"
+            value=""
+          />
+        </ColWithMargin>
+        <ColWithMargin>
+          <Styled(Input)
+            key="password"
+            label="password"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          />
+        </ColWithMargin>
+        <styled.div
+          size={12}
+        >
+          <Styled(Button)
+            dark={true}
+            loading={false}
+            onClick={[Function]}
+            type="submit"
+            width="100%"
+          >
+            SIGN UP
+          </Styled(Button)>
+        </styled.div>
+        <ColWithMargin
+          marginTop="30px"
+        >
+          <Styled(Heading)
+            bold={false}
+            inline={true}
+            lighterGray={true}
+            marginBottom={null}
+            marginTop={null}
+            mono={false}
+            size="S"
+            uppercase={false}
+          >
+            Already have an account?
+              
+          </Styled(Heading)>
+          <Styled(LinkComponent)
+            onClick={[Function]}
+            size="S"
+          >
+            SIGN IN
+          </Styled(LinkComponent)>
+        </ColWithMargin>
+      </form>
+    </styled.div>
+  </styled.div>
+</Modal>
+`;
