@@ -1,4 +1,5 @@
 import "reflect-metadata";
+require("dotenv-safe").config();
 import { ApolloServer  } from 'apollo-server-express';
 import { buildSchema } from "type-graphql";
 import * as cors from 'cors';
@@ -12,7 +13,6 @@ const startServer = async () => {
 
     const app = express();
 
-    const SESSION_SECRET = "fdashjfhdsajfhds"; // TODO: .env
     let schema;
 
     try {
@@ -31,8 +31,8 @@ const startServer = async () => {
     const server = new ApolloServer ({
         schema,
         // @ts-ignore
-        context: ({ request }) => ({
-            req: request
+        context: ({ req }: any) => ({
+            req,
         }),
     });
 
@@ -59,11 +59,15 @@ const startServer = async () => {
         return next();
     });
 
+    if (!process.env.SESSION_SECRET) {
+        throw Error('SESSION_SECRET is missing, check your .env');
+    }
+
     app.use(
         // TODO: use redis as a store
         session({
             name: "qid",
-            secret: SESSION_SECRET,
+            secret: process.env.SESSION_SECRET,
             resave: false,
             saveUninitialized: false,
             cookie: {
@@ -76,7 +80,7 @@ const startServer = async () => {
 
     server.applyMiddleware({ app, cors: false }); // app is from an existing express app
 
-    const port = 7080; // TODO: .env
+    const port = process.env.PORT || 7080;
     app.listen(
         { port },
         () => console.log(`Server is running on http://localhost:${port}`)
