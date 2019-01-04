@@ -18,12 +18,10 @@ export class UserResolver {
 		} else {
 			response = await AuthService.signUp(input);
 		}
-		
+
 		if (response.success) {
 			// @ts-ignore
-			ctx.req.session.user = {
-				...response.data.user
-			};
+			ctx.req.session.id = response.data.user.id;
 		}
 		return response;
 	}
@@ -33,15 +31,15 @@ export class UserResolver {
 		return UserService.getUsers();
 	}
 
-	// @Query(() => User, { nullable: true })
-	// async me(
-	// 	@Ctx()
-	// 		ctx: MyContext
-	// ) {
-	// 	console.log(ctx.req.session, 'session?');
-		// const { id } = ctx.req.session!;
-		// return id ? User.findOne(id) : null;
-	// }
+	@Query(() => User, { nullable: true })
+	async me(
+		@Ctx()
+			ctx: MyContext
+	) {
+		console.log(ctx.req.session, 'session?');
+		const { id } = ctx.req.session!;
+		return id ? User.findOne(id) : null;
+	}
 
 	@Query(() => User, { nullable: true })
 	async getUserByEmail(@Arg('email') email: string) {

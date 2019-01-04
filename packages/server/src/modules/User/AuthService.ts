@@ -54,7 +54,6 @@ export default class AuthService {
 			const token = AuthService.createToken(user);
 
 			return AuthService.createSuccessResponse(token, user);
-
 		} catch (e) {
 			return AuthService.createErrorResponse(e);
 		}
