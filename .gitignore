@@ -1,5 +1,4 @@
-node_modules
-.next
-.gitignore
-.env
+node_modules/
+lerna-debug.log
+npm-debug.log
 .idea
