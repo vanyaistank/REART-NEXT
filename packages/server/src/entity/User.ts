@@ -1,5 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-import { ArgsType, ObjectType, Field, ID, InputType } from "type-graphql";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    BaseEntity,
+    OneToMany
+} from "typeorm";
+import {
+    ArgsType,
+    ObjectType,
+    Field,
+    ID,
+    InputType
+} from "type-graphql";
+import {Product} from './Product';
 
 @ArgsType()
 @InputType()
@@ -87,4 +100,8 @@ export class User extends BaseEntity {
     @Field()
     @Column({ type: 'text', nullable: true })
     gender: string;
+
+    @Field(() => [Product])
+    @OneToMany(() => Product, product => product.userId)
+    products: Product[]
 }

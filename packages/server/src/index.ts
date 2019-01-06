@@ -7,6 +7,7 @@ import * as express from 'express';
 import * as session from "express-session";
 
 import createConnection from './createTypeORMconn';
+import userLoader from './loaders/userLoader';
 
 const startServer = async () => {
     await createConnection();
@@ -32,6 +33,7 @@ const startServer = async () => {
         schema,
         // @ts-ignore
         context: ({ req }: any) => ({
+            userLoader: userLoader(),
             req,
         }),
     });
@@ -42,7 +44,7 @@ const startServer = async () => {
             origin:
                 process.env.NODE_ENV === "production"
                     ? "http://re-art.store"
-                    : "http://localhost:7080",
+                    : `http://localhost:${process.env.PORT || 7080}`,
         })
     );
 

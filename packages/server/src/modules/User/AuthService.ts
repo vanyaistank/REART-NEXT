@@ -28,7 +28,7 @@ export class SignResponse {
 export default class AuthService {
 	public static async signIn({ email, password }: SignInput): Promise<SignResponse> {
 		try {
-			const user = await UserService.getByEmail(email);
+			const user = await UserService.getUser({ email });
 
 			if (!user) {
 				return this.createErrorResponse('No such user found.')
