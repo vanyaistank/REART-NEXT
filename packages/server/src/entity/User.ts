@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-import { ObjectType, Field, ID, InputType } from "type-graphql";
+import { ArgsType, ObjectType, Field, ID, InputType } from "type-graphql";
 
+@ArgsType()
 @InputType()
 export class SignInput {
     @Field()
@@ -17,6 +18,31 @@ export class SignInput {
 
     @Field({ nullable: true })
     lastName?: string;
+}
+
+@ArgsType()
+@InputType()
+export class UserInput extends SignInput {
+    @Field(() => ID, { nullable: true })
+    id: number;
+
+    @Field({ nullable: true })
+    email: string;
+
+    @Field({ nullable: true })
+    password: string;
+
+    @Field({ nullable: true })
+    role: string;
+
+    @Field(() => Boolean, { nullable: true })
+    verified: boolean;
+
+    @Field({ nullable: true })
+    country: string;
+
+    @Field({ nullable: true })
+    gender: string;
 }
 
 @Entity('users')
@@ -53,4 +79,12 @@ export class User extends BaseEntity {
     @Field(() => Boolean)
     @Column({ type: 'boolean', default: false })
     verified: boolean;
+
+    @Field()
+    @Column({ type: 'text', nullable: true })
+    country: string;
+
+    @Field()
+    @Column({ type: 'text', nullable: true })
+    gender: string;
 }

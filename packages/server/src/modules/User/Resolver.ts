@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Query, Arg, Ctx } from 'type-graphql';
-import { User, SignInput } from '../../entity/User';
+import { User, SignInput, UserInput } from '../../entity/User';
 import UserService from './UserService';
 import AuthService, { SignResponse } from './AuthService';
 
@@ -9,8 +9,8 @@ import { MyContext } from '../../types/Context';
 export class UserResolver {
 	@Mutation(() => SignResponse)
 	async sign(
-		@Arg('input') input: SignInput,
-		@Ctx() ctx: MyContext
+		@Arg('input') input: SignInput
+		// @Ctx() ctx: MyContext
 	) {
 		let response = null;
 		if (input.username == null) {
@@ -19,11 +19,14 @@ export class UserResolver {
 			response = await AuthService.signUp(input);
 		}
 
-		if (response.success) {
-			// @ts-ignore
-			ctx.req.session.id = response.data.user.id;
-		}
 		return response;
+	}
+
+	@Mutation(() => Boolean)
+	async updateUser(
+		@Arg('input') input: UserInput
+	) {
+		return await UserService.update(input);
 	}
 
 	@Query(() => [User], { nullable: true })
@@ -43,11 +46,11 @@ export class UserResolver {
 
 	@Query(() => User, { nullable: true })
 	async getUserByEmail(@Arg('email') email: string) {
-		return UserService.getByEmail(email);
+		return UserService.getUser({ email });
 	}
 
 	@Query(() => User, { nullable: true })
 	async getUserByUsername(@Arg('username') username: string) {
-		return UserService.getByUsername(username);
+		return UserService.getUser({ username });
 	}
 }

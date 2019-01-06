@@ -1,23 +1,22 @@
-import { getRepository } from "typeorm";
 import * as bcrypt from 'bcrypt';
-import { User, SignInput } from '../../entity/User';
+import { User, SignInput, UserInput } from '../../entity/User';
 
 type UserResult = Promise<User | null | undefined>;
 
+type oneOfArgs = 'email' | 'username' | 'id';
+
+// https://github.com/Microsoft/TypeScript/issues/5683
+type whereArg = {
+	[key in oneOfArgs]: string;
+}
+
 export default class UserService {
 	public static async getUsers () {
-		return await getRepository(User)
-			.createQueryBuilder('users')
-			.getMany();
+		return User.find();
 	}
 
-	// dry but i guess these will come in handy later
-	public static async getByEmail(email: string): UserResult {
-		return User.findOne({ where: { email } }) || null;
-	}
-
-	public static async getByUsername(username: string): UserResult {
-		return User.findOne({ where: { username } }) || null;
+	public static async getUser(arg: Partial<whereArg>): UserResult {
+		return User.findOne({ where: arg }) || null;
 	}
 
 	public static async save({ email, username, password, firstName, lastName }: SignInput) {
@@ -26,7 +25,7 @@ export default class UserService {
 		const isUserExists = await this.isUserExists(email, username);
 
 		if (isUserExists) {
-			throw new Error('User with email: ' + email + ' already exists');
+			throw new Error(`A user is already registered with this email address: ${email}`);
 		}
 
 		const encryptedPassword = await bcrypt.hash(password, 10);
@@ -43,9 +42,19 @@ export default class UserService {
 		return user;
 	}
 
+	public static async update({ id, ...rest }: UserInput): Promise<boolean> {
+		try {
+			await User.update(id, { ...rest });
+			return true;
+		} catch (e) {
+			console.error(e);
+			return false;
+		}
+	}
+
 	private static async isUserExists (email: string, username: string): Promise<boolean> {
-		const isEmailExists = await this.getByEmail(email);
-		const isUserExists = await this.getByUsername(username);
+		const isEmailExists = await this.getUser({ email });
+		const isUserExists = await this.getUser({ username });
 
 		return !!(isEmailExists && isUserExists);
 	}
