@@ -49,7 +49,7 @@ export class ProductResolver {
 	async addProduct(
 		@Arg('input') input: ProductInput
 	) {
-		return await ProductService.save(input);
+		return await ProductService.create(input);
 	}
 
 	@Mutation(() => Product)

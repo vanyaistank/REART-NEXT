@@ -19,7 +19,7 @@ export default class UserService {
 		return User.findOne({ where: arg }) || null;
 	}
 
-	public static async save({ email, username, password, firstName, lastName }: SignInput) {
+	public static async create({ email, username, password, firstName, lastName }: SignInput) {
 		// @ts-ignore
 		// since username is nullable
 		const isUserExists = await this.isUserExists(email, username);

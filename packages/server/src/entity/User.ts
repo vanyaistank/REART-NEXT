@@ -12,7 +12,8 @@ import {
     ID,
     InputType
 } from "type-graphql";
-import {Product} from './Product';
+import { Product } from './Product';
+import { Message } from './Message';
 
 @ArgsType()
 @InputType()
@@ -104,4 +105,8 @@ export class User extends BaseEntity {
     @Field(() => [Product])
     @OneToMany(() => Product, product => product.userId)
     products: Product[]
+
+    @Field(() => [Message])
+    @OneToMany(() => Message, msg => msg.user)
+    messages: Message[]
 }

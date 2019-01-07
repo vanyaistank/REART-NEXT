@@ -55,7 +55,7 @@ export default class ProductService {
 		return Product.find({ where: { categoryId }}) || [];
 	}
 
-	public static async save(input: ProductInput): Promise<Product> {
+	public static async create(input: ProductInput): Promise<Product> {
 		const createdAt = Date.now().toString();
 
 		const product = Product.create({

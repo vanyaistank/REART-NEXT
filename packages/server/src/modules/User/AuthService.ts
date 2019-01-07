@@ -50,7 +50,7 @@ export default class AuthService {
 
 	public static async signUp(input: SignInput): Promise<SignResponse> {
 		try {
-			const user = await UserService.save(input);
+			const user = await UserService.create(input);
 			const token = AuthService.createToken(user);
 
 			return AuthService.createSuccessResponse(token, user);

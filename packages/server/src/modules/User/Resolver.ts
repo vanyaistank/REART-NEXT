@@ -9,14 +9,23 @@ import { MyContext } from '../../types/Context';
 export class UserResolver {
 	@Mutation(() => SignResponse)
 	async sign(
-		@Arg('input') input: SignInput
-		// @Ctx() ctx: MyContext
+		@Arg('input') input: SignInput,
+		@Ctx() { req }: MyContext
 	) {
 		let response = null;
 		if (input.username == null) {
 			response = await AuthService.signIn(input);
 		} else {
 			response = await AuthService.signUp(input);
+		}
+
+		if (response.success) {
+			console.log('response.success');
+			if (req.session) {
+				console.log(req.session);
+				req.session.userId = response!.data!.user!.id;
+				console.log(req.session, 'userId???');
+			}
 		}
 
 		return response;
@@ -39,9 +48,8 @@ export class UserResolver {
 		@Ctx()
 			ctx: MyContext
 	) {
-		console.log(ctx.req.session, 'session?');
-		const { id } = ctx.req.session!;
-		return id ? User.findOne(id) : null;
+		const { userId } = ctx.req.session!;
+		return userId ? User.findOne(userId) : null;
 	}
 
 	@Query(() => User, { nullable: true })
