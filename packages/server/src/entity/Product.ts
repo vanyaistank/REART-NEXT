@@ -65,9 +65,9 @@ export class Product extends BaseEntity {
 	@Column({ type: 'bool', default: true })
 	unique: boolean;
 
-	@Field(() => Float)
-	@Column({ type: 'float', nullable: true })
-	price?: number;
+	@Field(() => Int)
+	@Column({ type: 'int', default: 0 })
+	price: number;
 
 	@Field()
 	@Column({ type: 'text'})

@@ -19,28 +19,28 @@ export class ProductResolver {
 
 	@Query(() => Product)
 	async getByUserId(
-		@Arg('input') userId: number
+		@Arg('userId') userId: number
 	) {
 		return await ProductService.getByUserId(userId);
 	}
 
 	@Query(() => Product)
 	async getById(
-		@Arg('input') id: number
+		@Arg('id') id: number
 	) {
 		return await ProductService.getById(id);
 	}
 
 	@Query(() => [Product])
 	async getByIds(
-		@Arg('input') ids: getByIdsInput
+		@Arg('ids') ids: getByIdsInput
 	) {
 		return await ProductService.getByIds(ids);
 	}
 
 	@Query(() => [Product])
 	async getByCategory(
-		@Arg('input') categoryId: number
+		@Arg('categoryId') categoryId: number
 	) {
 		return await ProductService.getByCategory(categoryId);
 	}
@@ -59,9 +59,9 @@ export class ProductResolver {
 		return await ProductService.update(input);
 	}
 
-	@Mutation(() => Product)
+	@Mutation(() => Boolean)
 	async deleteProduct(
-		@Arg('input') id: number
+		@Arg('id') id: number
 	) {
 		return await ProductService.delete(id);
 	}
