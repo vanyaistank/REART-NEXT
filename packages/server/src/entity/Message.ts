@@ -20,7 +20,7 @@ export class Message extends BaseEntity{
 	text: string;
 
 	@Field()
-	@Column({ type: 'timestamp'})
+	@Column({ type: 'text'})
 	createdAt: string;
 
 	@Field({ description: 'type of message, eg business/personal' })

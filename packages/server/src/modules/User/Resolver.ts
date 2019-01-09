@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query, Arg, Ctx } from 'type-graphql';
+import {Resolver, Mutation, Query, Arg, Ctx, Authorized} from 'type-graphql';
 import { User, SignInput, UserInput } from '../../entity/User';
 import UserService from './UserService';
 import AuthService, { SignResponse } from './AuthService';
@@ -20,12 +20,9 @@ export class UserResolver {
 		}
 
 		if (response.success) {
-			console.log('response.success');
-			if (req.session) {
-				console.log(req.session);
-				req.session.userId = response!.data!.user!.id;
-				console.log(req.session, 'userId???');
-			}
+			const { token } = response.data;
+			// @ts-ignore
+			req.token = token;
 		}
 
 		return response;
@@ -44,12 +41,20 @@ export class UserResolver {
 	}
 
 	@Query(() => User, { nullable: true })
+	@Authorized()
 	async me(
 		@Ctx()
 			ctx: MyContext
 	) {
-		const { userId } = ctx.req.session!;
-		return userId ? User.findOne(userId) : null;
+		if (ctx.req.decodedToken) {
+			// @ts-ignore
+			const { id } = ctx.req.decodedToken.id;
+			if (id) {
+				return User.findOne(id);
+			}
+		}
+
+		return null;
 	}
 
 	@Query(() => User, { nullable: true })

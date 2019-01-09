@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 
-export const decodeToken = async (token: string) => {
+export const decodeToken = async (token: string): Promise<any> => {
 	if (!process.env.JWT_SECRET) {
 		throw Error('JWT_SECRET is missing, check ur .env');
 	}

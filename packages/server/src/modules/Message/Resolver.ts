@@ -1,6 +1,6 @@
 import {
 	Resolver,
-	Authorized,
+	// Authorized,
 	Mutation,
 	Arg,
 	Ctx,
@@ -27,7 +27,7 @@ class MessageInput {
 
 @Resolver(Message)
 export class MessageResolver {
-	@Authorized()
+	// @Authorized()
 	@Mutation(() => Message)
 	async sendMessage(
 		@Arg('input') input: MessageInput,
@@ -35,24 +35,30 @@ export class MessageResolver {
 		@PubSub(NEW_MESSAGE) publish: Publisher<Message>
 	) {
 		const createdAt = Date.now().toString();
+		if (req.decodedToken) {
+			// @ts-ignore
+			console.log(req.decodedToken.id, 'ID???');
+			// @ts-ignore
+			const user = await userLoader.load(req!.decodedToken!.id);
+			const message = Message.create({
+				createdAt,
+				user,
+				...input,
+			});
 
-		const user = await userLoader.load(req!.session!.userId);
-		const message = Message.create({
-			createdAt,
-			user,
-			...input,
-		});
+			await Message.save(message);
+			await publish(message);
 
-		await Message.save(message);
-		await publish(message);
+			return message;
+		}
 
-		return message;
+		throw Error('User is not authorized');
 	}
 
-	@Authorized()
+	// @Authorized()
 	@Subscription({ topics: NEW_MESSAGE})
 	showMessages(
-		@Root() msgPayload: Message,
+		@Root() msgPayload: Message
 	): Message {
 		return msgPayload
 	}

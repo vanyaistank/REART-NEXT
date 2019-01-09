@@ -7,12 +7,11 @@ import { GraphQLError } from 'graphql';
 import { buildSchema } from "type-graphql";
 import * as cors from 'cors';
 import * as express from 'express';
-import * as session from "express-session";
 import chalk from 'chalk';
 
 import createConnection from './createTypeORMconn';
 import userLoader from './loaders/userLoader';
-import {decodeToken} from './helpers/decodeToken';
+import { decodeToken } from './helpers/decodeToken';
 
 const startServer = async () => {
     console.log(chalk.yellow('[*] Starting up server...'));
@@ -37,29 +36,12 @@ const startServer = async () => {
         schema = await buildSchema({
             resolvers: [__dirname + "/modules/**/Resolver.*"],
             authChecker: async ({ context }) => {
-                const token =
-                    context.req &&
-                    context.req.headers &&
-                    context.req.headers.Authorization ||
-                    context.connAuth
-                    || '';
-
-                const decodedToken = await decodeToken(token);
-
-                if (!decodedToken) {
-                    return false
+                console.log(context, 'context.req');
+                if (context.req) {
+                    console.log(context.req.decodedToken, context.req.token, 'session???');
+                    return !!(context.req.decodedToken || context.req.token);
                 }
-
-                // @ts-ignore
-                const { id, secret } = decodedToken;
-                const user = await context.userLoader.load(id);
-
-                if (user.accessSecret !== secret) {
-                    return false
-                }
-
-                context.userId = id
-                return true
+                return false;
             },
             validate: false,
         });
@@ -91,6 +73,13 @@ const startServer = async () => {
 
             return new GraphQLError(`Internal Error: ${errId}`);
         },
+        subscriptions: {
+            onConnect: (connectionParams: any) => {
+                return {
+                    authorization: connectionParams.authorization || null
+                }
+            }
+        }
     });
     console.log(chalk.green.bold('DONE'));
 
@@ -106,39 +95,30 @@ const startServer = async () => {
     );
     console.log(chalk.green.bold('DONE'));
 
-    app.use((req, _, next) => {
+    app.use(async (req, _, next) => {
         const authorization = req.headers.authorization;
+        console.log(authorization, 'authorization?????????');
+        if (authorization && typeof(authorization) === 'string') {
+            const bearer: string[] = authorization.split(' ');
 
-        if (authorization) {
-            try {
-                const qid = authorization.split(" ")[1];
-                req.headers.cookie = `qid=${qid}`;
-            } catch (_) {}
+            if (
+                bearer.length === 2 &&
+                bearer[0].toLowerCase() === 'bearer'
+            ) {
+                const token = bearer[1];
+                const decodedToken = await decodeToken(token);
+                console.log(decodedToken, 'decodedToken!!!');
+                if (decodedToken) {
+                    // @ts-ignore
+                    req.decodedToken = decodedToken;
+                    // @ts-ignore
+                    req.token = token;
+                }
+            }
         }
 
         return next();
     });
-
-    if (!process.env.SESSION_SECRET) {
-        throw Error('SESSION_SECRET is missing, check your .env');
-    }
-
-    process.stdout.write(chalk.yellow(`\t+ ${chalk.white('Using session...')}`));
-    app.use(
-        // TODO: use redis as a store
-        session({
-            name: "qid",
-            secret: process.env.SESSION_SECRET,
-            resave: false,
-            saveUninitialized: false,
-            cookie: {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
-            },
-        } as any)
-    );
-    console.log(chalk.green.bold('DONE'));
 
     process.stdout.write(
         chalk.yellow(
