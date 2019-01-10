@@ -103,10 +103,10 @@ export class User extends BaseEntity {
     gender: string;
 
     @Field(() => [Product])
-    @OneToMany(() => Product, product => product.userId)
-    products: Product[]
+    @OneToMany(() => Product, product => product.user)
+    products: Product[];
 
     @Field(() => [Message])
     @OneToMany(() => Message, msg => msg.user)
-    messages: Message[]
+    messages: Message[];
 }

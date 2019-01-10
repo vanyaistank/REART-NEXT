@@ -2,6 +2,7 @@ import { getRepository, SelectQueryBuilder } from 'typeorm';
 import { InputType, Field } from 'type-graphql';
 import { Product, ProductInput } from '../../entity/Product';
 import { getByIdsInput } from './Resolver';
+import { User } from '../../entity/User';
 
 @InputType()
 export class SearchProductInput {
@@ -55,7 +56,7 @@ export default class ProductService {
 		return Product.find({ where: { categoryId }}) || [];
 	}
 
-	public static async create(input: ProductInput): Promise<Product> {
+	public static async create(input: ProductInput & { user: User }): Promise<Product> {
 		const createdAt = Date.now().toString();
 
 		const product = Product.create({
@@ -63,7 +64,7 @@ export default class ProductService {
 			createdAt,
 		});
 		await product.save();
-
+		console.log(product, 'PRODUCT??');
 		return product;
 	}
 

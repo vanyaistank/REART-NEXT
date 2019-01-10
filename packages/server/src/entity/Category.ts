@@ -19,6 +19,12 @@ export class CategoryInput {
 	name: string;
 }
 
+@InputType()
+export class AddCategoryToInput extends CategoryInput {
+	@Field(() => ID)
+	id: number;
+}
+
 @Entity('categories')
 @ObjectType()
 export class Category extends BaseEntity {
@@ -31,6 +37,6 @@ export class Category extends BaseEntity {
 	name: string;
 
 	@Field(() => [Product])
-	@OneToMany(() => Product, product => product.categoryId)
+	@OneToMany(() => Product, product => product.category)
 	products: Product[]
 }

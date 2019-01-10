@@ -36,9 +36,7 @@ const startServer = async () => {
         schema = await buildSchema({
             resolvers: [__dirname + "/modules/**/Resolver.*"],
             authChecker: async ({ context }) => {
-                console.log(context, 'context.req');
                 if (context.req) {
-                    console.log(context.req.decodedToken, context.req.token, 'session???');
                     return !!(context.req.decodedToken || context.req.token);
                 }
                 return false;
@@ -90,7 +88,7 @@ const startServer = async () => {
             origin:
                 process.env.NODE_ENV === "production"
                     ? "http://re-art.store"
-                    : `http://localhost:${process.env.PORT || 7080}`,
+                    : `http://localhost:${process.env.APP_PORT || 3000}`,
         })
     );
     console.log(chalk.green.bold('DONE'));

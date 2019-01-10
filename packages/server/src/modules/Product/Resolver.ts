@@ -1,6 +1,7 @@
-import {Resolver, Mutation, Query, Arg, InputType, ID, Field} from 'type-graphql';
+import {Resolver, Mutation, Query, Arg, InputType, ID, Field, Ctx, Authorized} from 'type-graphql';
 import { Product, ProductInput } from '../../entity/Product';
 import ProductService, { SearchProductInput } from './ProductService';
+import { MyContext } from '../../types/Context';
 
 @InputType()
 export class getByIdsInput {
@@ -46,10 +47,19 @@ export class ProductResolver {
 	}
 
 	@Mutation(() => Product)
+	@Authorized()
 	async addProduct(
-		@Arg('input') input: ProductInput
+		@Arg('input') input: ProductInput,
+		@Ctx() { req, userLoader }: MyContext
 	) {
-		return await ProductService.create(input);
+		if (req.decodedToken) {
+			// @ts-ignore
+			const user = await userLoader.load(req!.decodedToken!.id);
+
+			return await ProductService.create({ ...input, user });
+		}
+
+		return null;
 	}
 
 	@Mutation(() => Product)

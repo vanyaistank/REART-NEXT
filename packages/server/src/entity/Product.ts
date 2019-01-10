@@ -14,7 +14,7 @@ import {
 	InputType
 } from 'type-graphql';
 import { User } from './User';
-import { Category } from './Category';
+import { AddCategoryToInput, Category } from './Category';
 
 @InputType()
 export class ProductInput {
@@ -39,11 +39,8 @@ export class ProductInput {
 	@Field()
 	photoUrl: string;
 
-	@Field(() => Int)
-	userId: number;
-
-	@Field(() => Int)
-	categoryId: number;
+	@Field(() => AddCategoryToInput)
+	category: Category;
 }
 
 @Entity('products')
@@ -81,11 +78,11 @@ export class Product extends BaseEntity {
 	@Column({ type: 'text' })
 	createdAt: string;
 
-	@Field(() => Int)
+	@Field(() => User)
 	@ManyToOne(() => User, user => user.products)
-	userId: number;
+	user: User;
 
-	@Field(() => Int)
+	@Field(() => Category)
 	@ManyToOne(() => Category, category => category.products)
-	categoryId: number;
+	category: Category;
 }
