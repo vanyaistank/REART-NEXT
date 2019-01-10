@@ -34,9 +34,6 @@ export class ProductInput {
 	price: number;
 
 	@Field()
-	author: string;
-
-	@Field()
 	photoUrl: string;
 
 	@Field(() => AddCategoryToInput)
@@ -65,10 +62,6 @@ export class Product extends BaseEntity {
 	@Field(() => Int)
 	@Column({ type: 'int', default: 0 })
 	price: number;
-
-	@Field()
-	@Column({ type: 'text'})
-	author: string;
 
 	@Field()
 	@Column({ type: 'text'})

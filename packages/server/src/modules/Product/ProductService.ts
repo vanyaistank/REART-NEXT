@@ -29,11 +29,11 @@ export default class ProductService {
 			.createQueryBuilder('products')
 			.where('products.name like :search', { search })
 			.orWhere('products.description like :search', { search })
-			.orWhere('products.author like :search', { search })
+			// .orWhere('products.author like :search', { search })
 			// @ts-ignore
 			.orderBy(`products.${orderBy}`, `${orderDirection}`)
 			.getMany();
-		console.log(products, 'products');
+
 		return products || [];
 	}
 
@@ -68,9 +68,8 @@ export default class ProductService {
 			category,
 			createdAt,
 		});
-		console.log(product, 'FUCKING PRODUCT MAN!!!!!!!!!!');
 		await product.save();
-		console.log(product, 'PRODUCT??');
+
 		return product;
 	}
 
