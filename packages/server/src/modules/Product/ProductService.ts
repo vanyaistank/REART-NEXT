@@ -3,6 +3,7 @@ import { InputType, Field } from 'type-graphql';
 import { Product, ProductInput } from '../../entity/Product';
 import { getByIdsInput } from './Resolver';
 import { User } from '../../entity/User';
+import { Category } from '../../entity/Category';
 
 @InputType()
 export class SearchProductInput {
@@ -59,10 +60,15 @@ export default class ProductService {
 	public static async create(input: ProductInput & { user: User }): Promise<Product> {
 		const createdAt = Date.now().toString();
 
+		const { category: categoryInput, ...rest } = input;
+		const category = Category.create(categoryInput);
+
 		const product = Product.create({
-			...input,
+			...rest,
+			category,
 			createdAt,
 		});
+		console.log(product, 'FUCKING PRODUCT MAN!!!!!!!!!!');
 		await product.save();
 		console.log(product, 'PRODUCT??');
 		return product;
