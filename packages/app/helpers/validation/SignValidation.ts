@@ -24,7 +24,7 @@ export const possibleApiErrorMessages = [
 	},
 ];
 
-export const validateSignForm = (values: SignFormValues, isLogin?: boolean) => {
+export const validateSignForm = (values: SignFormValues, isRegistration?: boolean) => {
 	const errors: any = {};
 
 	const requiredField = (field: string): string => `${field} is required`;
@@ -33,7 +33,7 @@ export const validateSignForm = (values: SignFormValues, isLogin?: boolean) => {
 	const maximumLength = (field: string, num?: number): string =>
 		`${field} must contain maximum ${num || 24} characters`;
 
-	if (!isLogin) {
+	if (isRegistration) {
 		if (!values.username) {
 			errors.username = requiredField('Username');
 		} else if (!/^[0-9a-zA-Z]+$/.test(values.username)) {
@@ -70,11 +70,11 @@ export const validateSignForm = (values: SignFormValues, isLogin?: boolean) => {
 		errors.password = requiredField('Password');
 	} else if (
 		!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-			values.password
+			values.password,
 		)
 	) {
 		errors.password = `${minimumLength(
-			'Password'
+			'Password',
 		)}, at least 1 letter, 1 number and 1 special character`;
 	} else if (values.password.length > 24) {
 		errors.password = maximumLength('Password');

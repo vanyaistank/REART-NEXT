@@ -70,32 +70,10 @@ class Input extends Component<Props> {
 			...rest
 		} = this.props;
 
-
-		// if (mask != null) {
-		// 	Input = (
-		// 		<TextMask
-		// 			className={className}
-		// 			componentRef={this._getRef}
-		// 			Component={InputAdapter}
-		// 			mask={mask}
-		// 			{...rest}
-		// 		/>
-		// 	);
-		// } else {
-		// const Input = (
-		// 	<input
-		// 		placeholder={placeholder}
-		// 		className={className}
-		// 		ref={this._getRef}
-		// 		{...rest}
-		// 	/>
-		// );
-		// }
-
 		return (
 			<label>
 				{label && (
-					<Heading bold uppercase size="S">
+					<Heading bold size="S">
 						{label}
 					</Heading>
 				)}

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
-import { withRouter } from 'next/router'
-import {mapDispatchToProps} from '@Redux/helpers';
+import { withRouter } from 'next/router';
+import { mapDispatchToProps } from '@Redux/helpers';
 import { AddToCart } from '@Redux/reducers/Cart/CartActions';
 import { getCart } from '@Redux/reselect';
 import { getProductQuery } from './ProductSchema';
@@ -23,14 +23,14 @@ class ProductContainer extends PureComponent<any> {
 			<Query
 				query={getProductQuery}
 				variables={{
-					id,
+					id: +id,
 				}}
 			>
 				{({ data, error, loading }) => {
 					if (error) return <h1>ERROR!</h1>;
 					if (loading) return <h1>LOADING...</h1>;
 
-					const { product } = data;
+					const { getProductById: product } = data;
 					return (
 						<InnerProduct
 							addToCart={addToCart}

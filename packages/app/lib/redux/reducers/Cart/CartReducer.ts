@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-import {ADD_TO_CART} from '@Redux/reducers/Cart/CartConstants';
+import { ADD_TO_CART } from '@Redux/reducers/Cart/CartConstants';
 import * as actions from './CartActions';
 
 type CartActions = ActionType<typeof actions>;

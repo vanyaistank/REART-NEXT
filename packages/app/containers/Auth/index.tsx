@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import { createPortal } from 'react-dom';
 import { Formik, FormikProps } from 'formik';
 import _ from 'lodash';
+import { withRouter, RouterProps } from 'next/router';
 
 import { Mutation } from 'react-apollo';
 import { SignMutation } from './AuthSchema';
@@ -14,7 +15,9 @@ import { ToggleModal } from '@Redux/reducers/Layout/LayoutActions';
 import { UserData } from '@Redux/reducers/User/UserReducer';
 import { Authorize } from '@Redux/reducers/User/UserActions';
 
-import SignForm from './components/SignForm';
+import SignInForm from './components/SignInForm';
+import SignUpForm from './components/SignUpForm';
+
 import {
 	validateSignForm,
 	possibleApiErrorMessages,
@@ -33,10 +36,11 @@ export type oneOfFields = 'username' | 'email' | 'password' | 'firstName' | 'las
 interface Props extends getUserAndLayoutType {
 	toggleModal: () => void;
 	authorize: (data: UserData) => void; // log in user
+	render: (any) => React.ReactNode;
+	router: RouterProps;
 }
 
 interface State extends SignFormValues {
-	isLogin: boolean; // whether or not show login page
 	apiErrors: Partial<SignFormValues>; // wrong password and errors like that
 	modalRoot: HTMLElement; // node for modal
 }
@@ -45,7 +49,7 @@ interface SignUpResponseInterface {
 	success: boolean;
 	message?: string; // validation errors, etc
 	data?: {
-		sign: string;
+		token: string;
 		user: {
 			username: string;
 			ID: number;
@@ -54,7 +58,7 @@ interface SignUpResponseInterface {
 	};
 }
 
-export class AuthContainer extends PureComponent<Props, State> {
+export class Auth extends PureComponent<Props, State> {
 	// I will pass this to resetErrors handler when onChange event occurs to reset errors,
 	// cause formik doesn't handle these
 	apiErrorsInitialState: Partial<SignFormValues> = {
@@ -66,7 +70,6 @@ export class AuthContainer extends PureComponent<Props, State> {
 	};
 
 	state = {
-		isLogin: true,
 		username: '',
 		email: '',
 		password: '',
@@ -79,12 +82,8 @@ export class AuthContainer extends PureComponent<Props, State> {
 		this.setState({ modalRoot });
 	}
 
-	// switch between sign in and sign up screens
-	switchScreen = (): void =>
-		this.setState(state => ({ isLogin: !state.isLogin }));
-
 	resetErrors = (): void =>
-		this.setState({ apiErrors: this.apiErrorsInitialState });
+		this.setState({ apiErrors: this.apiErrorsInitialState })
 
 	handleSignUpResponse = (response: SignUpResponseInterface): void => {
 		const { authorize, toggleModal } = this.props;
@@ -94,13 +93,13 @@ export class AuthContainer extends PureComponent<Props, State> {
 			if (response.success === true) {
 				const { data = {} } = response;
 
-				const hasToken = _.has(data, 'sign');
+				const hasToken = _.has(data, 'token');
 				const hasUser = _.has(data, 'user');
 
 				if (hasToken && hasUser) {
 					const payload = {
 						...response.data.user,
-						token: response.data.sign,
+						token: response.data.token,
 					};
 
 					authorize(payload);
@@ -116,10 +115,10 @@ export class AuthContainer extends PureComponent<Props, State> {
 					};
 
 					// get field containing error message, e.g. "email"
-					const { field = null }: Error = ({} = _.find(
+					const { field = null }: Error = _.find(
 						possibleApiErrorMessages,
-						item => (item.error = message)
-					));
+						item => (item.error = message),
+					) || {};
 
 					if (field) {
 						this.setState(state => ({
@@ -132,18 +131,21 @@ export class AuthContainer extends PureComponent<Props, State> {
 				}
 			}
 		}
-	};
+	}
 
 	render() {
 		const {
 			toggleModal,
 			layout: { showModal },
+			router: {
+				pathname,
+			},
+			user,
 		} = this.props;
-
-		const { isLogin, apiErrors, modalRoot } = this.state;
-
+		const { apiErrors } = this.state;
+		const isRegistration = pathname === '/signup';
 		const initialValues: SignFormValues = {
-			...(isLogin === false && {
+			...(isRegistration && {
 				username: '',
 				firstName: '',
 				lastName: '',
@@ -152,53 +154,48 @@ export class AuthContainer extends PureComponent<Props, State> {
 			password: '',
 		};
 
-		if (modalRoot) {
-			return createPortal(
-				<Mutation
-					mutation={SignMutation}
-					onCompleted={({ sign }) => this.handleSignUpResponse(sign)}
-				>
-					{(SignUpRequest, { error, loading }) => {
-						// TODO: Design error component
-						if (error) return <h1>Error!</h1>;
+		return (
+			<Mutation
+				mutation={SignMutation}
+				onCompleted={({ sign }) => this.handleSignUpResponse(sign)}
+			>
+				{(signUpRequest, { error, loading }) => {
+					// TODO: Design error component
+					if (error) return <h1>Error!</h1>;
 
-						return (
-							<Formik
-								initialValues={initialValues}
-								onSubmit={async (variables: SignFormValues, { resetForm }) => {
-									await SignUpRequest({ variables });
-									return resetForm();
-								}}
-								validate={(values: SignFormValues) =>
-									validateSignForm(values, isLogin)
-								}
-								render={({
-									handleChange,
-									...rest
-								}: FormikProps<SignFormValues>) => (
-									<SignForm
-										apiErrors={apiErrors}
-										handleChange={e => {
-											this.resetErrors();
-											return handleChange(e);
-										}}
-										toggleModal={toggleModal}
-										switchScreen={this.switchScreen}
-										showModal={showModal}
-										loading={loading}
-										{...this.state}
-										{...rest}
-									/>
-								)}
-							/>
-						);
-					}}
-				</Mutation>,
-				modalRoot
-			);
-		}
-
-		return null;
+					return (
+						<Formik
+							initialValues={initialValues}
+							onSubmit={async (variables: SignFormValues, { resetForm }) => {
+								await signUpRequest({ variables });
+								return resetForm();
+							}}
+							validate={(values: SignFormValues) =>
+								validateSignForm(values, isRegistration)
+							}
+							render={({
+								handleChange,
+								...rest
+							}: FormikProps<SignFormValues>) => (
+								this.props.render({
+									apiErrors,
+									toggleModal,
+									showModal,
+									loading,
+									user,
+									handleChange: (e) => {
+										this.resetErrors();
+										return handleChange(e);
+									},
+									...this.state,
+									...rest,
+								})
+							)}
+						/>
+					);
+				}}
+			</Mutation>
+		);
 	}
 }
 
@@ -207,7 +204,44 @@ const actionCreators = {
 	authorize: Authorize,
 };
 
-export default connect(
+// @ts-ignore
+const ConnectedAuth = withRouter(connect(
 	getUserAndLayout,
-	mapDispatchToProps(actionCreators)
-)(AuthContainer);
+	mapDispatchToProps(actionCreators),
+)(Auth));
+
+export default class AuthContainer extends Component
+	<{ modal: boolean}, { modalRoot: HTMLElement }> {
+	static defaultProps = {
+		modal: true,
+	};
+	state = {
+		modalRoot: null,
+	};
+
+	componentDidMount(): void {
+		const modalRoot = document.getElementById('modal-root') as HTMLElement;
+		if (modalRoot) {
+			this.setState({ modalRoot });
+		}
+	}
+
+	render() {
+		const { modal } = this.props;
+		const { modalRoot } = this.state;
+		return (
+			<ConnectedAuth
+				render={(props) => {
+					if (modal && modalRoot) {
+						return createPortal(
+							<SignInForm {...props} />,
+							modalRoot,
+						);
+					}
+
+					return <SignUpForm {...props} />;
+				}}
+			/>
+		);
+	}
+}

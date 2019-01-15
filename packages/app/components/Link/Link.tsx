@@ -62,10 +62,10 @@ const StyledLink = styled(LinkComponent)`
 			color: ${styledProps(colors, 'color')};
 			margin-top: ${handleSize(props.marginTop)};
 			margin-bottom: ${handleSize(props.marginBottom)};
-			text-decoration: none;
+			text-decoration: underline;
 			will-change: text-decoration;
 			:hover {
-				text-decoration: underline;
+				text-decoration: none;
 			}
 		`;
 	}};

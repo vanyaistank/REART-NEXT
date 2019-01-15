@@ -4,7 +4,7 @@ import 'jest-styled-components';
 import { Formik } from 'formik';
 import { validateSignForm } from '@Helpers/validation/SignValidation';
 
-import SignForm from './SignForm';
+import SignInForm from './SignInForm';
 
 const noop = () => console.log('noop');
 
@@ -34,7 +34,7 @@ it('renders Sign In Form with no values', () => {
 			onSubmit={noop}
 			validate={values => validateSignForm(values, true)}
 			render={({ handleChange, ...rest }) => (
-				<SignForm
+				<SignInForm
 					apiErrors={apiErrors}
 					handleChange={noop}
 					toggleModal={noop}
@@ -57,7 +57,7 @@ it('renders Sign Up Form with no values', () => {
 			onSubmit={noop}
 			validate={values => validateSignForm(values, false)}
 			render={({ handleChange, ...rest }) => (
-				<SignForm
+				<SignInForm
 					apiErrors={apiErrors}
 					handleChange={noop}
 					toggleModal={noop}

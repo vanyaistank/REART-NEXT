@@ -1,5 +1,5 @@
 {
-   "name": "backend",
+   "name": "@reart/server",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "dependencies": {

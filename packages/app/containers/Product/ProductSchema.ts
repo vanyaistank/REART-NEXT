@@ -1,18 +1,12 @@
 import gql from 'graphql-tag';
+import { productFragment } from '@GraphQL/fragments/productFragment';
+
 
 export const getProductQuery = gql`
-    query($id: Int!) {
-        product(id: $id) {
-            id
-            user_id
-            category_id
-            name
-            description
-            code
-            price
-            author
-            photoUrl
-            creation_date
+	${productFragment}
+    query($id: Float!) {
+        getProductById(id: $id) {
+            ...productFragment
         }
     }
 `;

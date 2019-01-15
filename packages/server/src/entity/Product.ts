@@ -3,7 +3,8 @@ import {
 	PrimaryGeneratedColumn,
 	Column,
 	BaseEntity,
-	ManyToOne
+	ManyToOne,
+	JoinTable
 } from 'typeorm';
 import {
 	Float,
@@ -72,10 +73,12 @@ export class Product extends BaseEntity {
 	createdAt: string;
 
 	@Field(() => User)
-	@ManyToOne(() => User, user => user.products)
+	@ManyToOne(() => User, user => user.products, { eager: true })
+	@JoinTable()
 	user: User;
 
 	@Field(() => Category)
-	@ManyToOne(() => Category, category => category.products)
+	@ManyToOne(() => Category, category => category.products, { eager: true })
+	@JoinTable()
 	category: Category;
 }

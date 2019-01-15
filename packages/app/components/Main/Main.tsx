@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 
 import styled from 'styled-components';
 import { Header, Auth } from '@Containers';
@@ -14,18 +14,26 @@ interface Props {
 	children: React.ReactNode;
 	className?: string;
 	title?: string;
+	modal?: boolean;
+	hideHeader?: boolean;
 }
 
-const Main: React.SFC<Props> = ({ className, title, children }) => (
+const Main: React.SFC<Props> = ({
+	className,
+	title,
+	children,
+	modal,
+	hideHeader = false,
+}) => (
 	<StyledCanvas>
-		<Header />
+		{!hideHeader && <Header />}
 		<main className={className}>
 			<Head>
 				<title>{title}</title>
 			</Head>
 			{children}
 		</main>
-		<Auth />
+		<Auth modal={modal} />
 	</StyledCanvas>
 );
 

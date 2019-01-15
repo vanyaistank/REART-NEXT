@@ -1,7 +1,7 @@
 import React from 'react';
 import enhanceWithClickOutside from 'react-click-outside';
 import styled from 'styled-components';
-import { colors, media } from '@Styled/theme';
+import { FormWrapper } from '@Components';
 
 interface ModalContainerProps {
 	showModal: boolean;
@@ -29,25 +29,6 @@ const ModalContainer = styled.div`
 	transition: 150ms opacity ease-in-out;
 `;
 
-const ModalWrapper = styled.div`
-	padding: 20px;
-	background: #fff;
-	display: inline-block;
-	min-height: 500px;
-	margin: 1rem;
-	position: relative;
-	min-width: 500px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	border: 1px solid ${colors.border};
-	border-radius: 3px;
-	justify-self: center;
-	background: ${colors.lighterMain};
-	${media.tablet`
-		min-height: 300px;
-		min-width: 300px;
-	`};
-`;
-
 class Wrapper extends React.Component<ModalProps & ModalContainerProps> {
 	handleClickOutside() {
 		const { showModal, toggleModal, handleReset } = this.props;
@@ -61,7 +42,7 @@ class Wrapper extends React.Component<ModalProps & ModalContainerProps> {
 
 	render() {
 		const { children } = this.props;
-		return <ModalWrapper>{children}</ModalWrapper>;
+		return <FormWrapper>{children}</FormWrapper>;
 	}
 }
 

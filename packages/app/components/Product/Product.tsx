@@ -20,7 +20,14 @@ interface Props {
 }
 
 const Product: React.SFC<Props> = ({ item, small }) => (
-	<Col centered size={3} sizeL={6} sizeMd={6} sizeSm={12}>
+	<Col
+		flexDirection="column"
+		centered
+		size={3}
+		sizeL={6}
+		sizeMd={6}
+		sizeSm={12}
+	>
 		<ProductImage
 			margin
 			id={item.id}

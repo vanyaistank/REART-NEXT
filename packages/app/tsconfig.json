@@ -9,7 +9,8 @@
       "@Components": ["components/index.ts"],
       "@Containers": ["containers/index.ts"],
       "@Helpers/*": ["helpers/*"],
-      "@API/*" : ["api/*"]
+      "@API/*" : ["api/*"],
+      "@Types": ["types/index.ts"]
     },
     "target": "esnext",
     "module": "esnext",

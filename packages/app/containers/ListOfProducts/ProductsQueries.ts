@@ -1,18 +1,15 @@
 import gql from 'graphql-tag';
+import { productFragment } from '@GraphQL/fragments/productFragment';
 
 export const getProductsQuery = gql`
-	query {
-        products(productsQueryOptions: {}) {
-            id
-            user_id
-            category_id
-            name
-            description
-            code
-            price
-            author
-            photoUrl
-            creation_date
-        }
+    ${productFragment}
+    query($searchValue: String, $orderBy: String, $orderDirection: String) {
+      getProducts(input: { 
+        searchValue: $searchValue, 
+        orderBy: $orderBy, 
+        orderDirection: $orderDirection 
+      }) {
+        ...productFragment
+      }
     }
 `;

@@ -26,14 +26,14 @@ export class ProductResolver {
 	}
 
 	@Query(() => Product)
-	async getById(
+	async getProductById(
 		@Arg('id') id: number
 	) {
 		return await ProductService.getById(id);
 	}
 
 	@Query(() => [Product])
-	async getByIds(
+	async getProductsByIds(
 		@Arg('ids') ids: getByIdsInput
 	) {
 		return await ProductService.getByIds(ids);

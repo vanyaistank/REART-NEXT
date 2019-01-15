@@ -12,6 +12,7 @@ module.exports = withTypescript({
 				'@Containers': path.resolve(__dirname, './containers/index.ts'),
 				'@Helpers': path.resolve(__dirname, './helpers/'),
 				'@API': path.resolve(__dirname, './api/'),
+				'@Types': path.resolve(__dirname, './types/index.ts'),
 			},
 			extensions: [...config.resolve.extensions, '.tsx'],
 		};

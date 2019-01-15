@@ -1,5 +1,14 @@
 import React from 'react';
-import { Button, Row, Col, Heading, Swiper, Link, ProductImage } from '@Components';
+import {
+	Button,
+	Row,
+	Col,
+	Heading,
+	Swiper,
+	Link,
+	ProductImage,
+} from '@Components';
+import { useCart } from 'react-ecommerce-hook';
 
 type Product = {
 	id: number;
@@ -19,14 +28,16 @@ interface Props {
 	addToCart: (number, boolean) => void;
 }
 
-const InnerProduct: React.SFC<Props> = ({ item, addToCart }) => {
+const InnerProduct: React.SFC<Props> = ({ item }) => {
 	const {
 		id,
 		name,
-		author,
 		description,
 		price,
 		photoUrl,
+		user: {
+			username,
+		},
 	} = item;
 
 	// temporary function, cause there's single image in the response yet
@@ -36,7 +47,10 @@ const InnerProduct: React.SFC<Props> = ({ item, addToCart }) => {
 		</div>
 	);
 
-	const isUnique = false; // temporary: is this item unique? (you can't increase its quantity)
+	// const isUnique = false; // temporary: is this item unique? (you can't increase its quantity)
+
+	const { state, addToCart } = useCart();
+	console.log(state, 'STATE???');
 
 	console.log(item, 'ITEM IN INNERPRODUCT');
 
@@ -45,27 +59,29 @@ const InnerProduct: React.SFC<Props> = ({ item, addToCart }) => {
 			<Col size={6} sizeL={12} sizeMd={12} sizeSm={12} marginBottom="50px">
 				<Swiper>{renderSlides()}</Swiper>
 			</Col>
-			<Col size={6} sizeL={12} sizeMd={12} sizeSm={12}>
+			<Col flexDirection="column" size={6} sizeL={12} sizeMd={12} sizeSm={12}>
 				<Col size={12}>
 					<Heading white size="L">
 						{name}
 					</Heading>
 				</Col>
-				<Col size={12}>
+				<Col size={12} alignItems="center">
 					<Heading inline bold size="S">
-						{'by' + ' '}
+						{`by  `}
 					</Heading>
 					<Link white href="/">
-						@{author}
+						{`@${username}`}
 					</Link>
 				</Col>
 				<Col size={12}>
-					<Heading size="L">{price} $</Heading>
+					<Heading size="L">{`${price} $`} </Heading>
 				</Col>
 				<Col size={12} marginBottom="20px">
 					<Button
 						width="100%"
-						onClick={() => addToCart(id, isUnique)}
+						onClick={() => {
+							addToCart({ id });
+						}}
 						purple
 					>
 						ADD TO CART

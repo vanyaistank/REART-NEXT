@@ -16,7 +16,7 @@ export default class ProductsContainer extends PureComponent {
 					if (error) return <h1>Error!</h1>;
 					if (loading) return <h1>Loading...</h1>;
 
-					const { products } = data;
+					const { getProducts: products } = data;
 
 					return this.renderProducts(products);
 				}}

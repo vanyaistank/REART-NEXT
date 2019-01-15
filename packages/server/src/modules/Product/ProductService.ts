@@ -27,13 +27,15 @@ export default class ProductService {
 
 		const products = await getRepository(Product)
 			.createQueryBuilder('products')
+			.leftJoinAndSelect('products.user', 'user')
+			.leftJoinAndSelect('products.category', 'category')
 			.where('products.name like :search', { search })
 			.orWhere('products.description like :search', { search })
 			// .orWhere('products.author like :search', { search })
 			// @ts-ignore
 			.orderBy(`products.${orderBy}`, `${orderDirection}`)
 			.getMany();
-
+		console.log(products, 'PRODUCTS!!!!!!!!');
 		return products || [];
 	}
 
@@ -68,6 +70,7 @@ export default class ProductService {
 			category,
 			createdAt,
 		});
+		console.log(product, 'PRODUCT!!!');
 		await product.save();
 
 		return product;

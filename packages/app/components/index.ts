@@ -3,6 +3,7 @@ import Card from './Card';
 import Dropdown from './Dropdown';
 import Heading from './Heading';
 import Link from './Link';
+import { FormWrapper, FormError, FormInput } from './Form';
 import Main from './Main';
 import Modal from './Modal';
 import Icon from './Icon';
@@ -27,6 +28,9 @@ export {
 	Dropdown,
 	Heading,
 	Link,
+	FormWrapper,
+	FormError,
+	FormInput,
 	Main,
 	Modal,
 	Icon,

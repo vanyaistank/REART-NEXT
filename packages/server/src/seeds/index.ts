@@ -1,15 +1,15 @@
 import chalk from 'chalk';
-// import { seedCategories } from './seedCategories';
-// import { seedUsers } from './seedUsers';
+import { seedCategories } from './seedCategories';
+import { seedUsers } from './seedUsers';
 import { seedProducts } from './seedProducts';
 import createConnection from '../createTypeORMconn';
 (async () => {
 	try {
 		await createConnection();
 
-		// await seedCategories();
+		await seedCategories();
 		console.log(chalk.green.bold('CATEGORIES SEEDED'));
-		// await seedUsers();
+		await seedUsers();
 		console.log(chalk.green.bold('USERS SEEDED'));
 		await seedProducts();
 		console.log(chalk.green.bold('PRODUCTS SEEDED'));
