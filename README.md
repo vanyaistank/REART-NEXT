@@ -9,7 +9,7 @@
 - server
   - GraphQL server built with Node.js, Typescript, [Type-GraphQL](https://19majkel94.github.io/type-graphql/), ~~Redis,~~ and PostgreSQL
 - app
-  - Next.js React + Redux app using Typescript
+  - Next.js React + React Apollo + Redux app using Typescript
 - ~~ui~~
   - ~~React Component library using Storybook~~
 - ~~common~~
