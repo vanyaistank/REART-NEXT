@@ -14,7 +14,7 @@ module.exports = withTypescript({
 				'@API': path.resolve(__dirname, './api/'),
 				'@Types': path.resolve(__dirname, './types/index.ts'),
 			},
-			extensions: [...config.resolve.extensions, '.tsx'],
+			extensions: [...config.resolve.extensions, '.tsx', '.ts'],
 		};
 		return config;
 	},

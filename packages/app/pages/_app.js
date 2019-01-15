@@ -10,7 +10,9 @@ import withApollo from '@GraphQL/withApollo';
 import globalStyle from '@Styled/globalStyle';
 import { colors } from '@Styled/theme';
 
-import App, { Container } from 'next/app'
+import App, { Container } from 'next/app';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const GlobalStyle = createGlobalStyle`${globalStyle}`;
 
@@ -30,7 +32,9 @@ class MyApp extends App {
 				<Provider store={store}>
 					<GlobalStyle />
 					<ThemeProvider theme={colors}>
-						<Component {...pageProps} />
+						<PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
+							<Component {...pageProps} />
+						</PersistGate>
 					</ThemeProvider>
 				</Provider>
 			</Container>
@@ -39,9 +43,9 @@ class MyApp extends App {
 }
 
 // since next-redux-wrapper expects func
-const makeStore = (initialState) => {
-	const { store } = createStore(initialState);
-	return store;
-};
+// const makeStore = (initialState) => {
+// 	const { store } = createStore(initialState);
+// 	return store;
+// };
 
-export default withApollo(withRedux(makeStore)(MyApp));
+export default withApollo(withRedux(createStore, { debug: true })(MyApp));

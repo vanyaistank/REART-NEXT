@@ -42,7 +42,6 @@ interface Props extends getUserAndLayoutType {
 
 interface State extends SignFormValues {
 	apiErrors: Partial<SignFormValues>; // wrong password and errors like that
-	modalRoot: HTMLElement; // node for modal
 }
 
 interface SignUpResponseInterface {
@@ -76,11 +75,6 @@ export class Auth extends PureComponent<Props, State> {
 		apiErrors: this.apiErrorsInitialState,
 		modalRoot: null,
 	};
-
-	componentDidMount(): void {
-		const modalRoot = document.getElementById('modal-root') as HTMLElement;
-		this.setState({ modalRoot });
-	}
 
 	resetErrors = (): void =>
 		this.setState({ apiErrors: this.apiErrorsInitialState })
@@ -143,7 +137,9 @@ export class Auth extends PureComponent<Props, State> {
 			user,
 		} = this.props;
 		const { apiErrors } = this.state;
+
 		const isRegistration = pathname === '/signup';
+
 		const initialValues: SignFormValues = {
 			...(isRegistration && {
 				username: '',

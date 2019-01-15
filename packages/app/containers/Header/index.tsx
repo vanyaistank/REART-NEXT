@@ -25,7 +25,6 @@ class HeaderContainer extends PureComponent<getUserAndLayoutType & Actions> {
 			layout: { showMenu },
 			user: { token },
 		} = this.props;
-
 		return (
 			<Header
 				showMenu={showMenu}
@@ -46,5 +45,5 @@ const actionCreators = {
 
 export default connect(
 	getUserAndLayout,
-	mapDispatchToProps(actionCreators)
+	mapDispatchToProps(actionCreators),
 )(HeaderContainer);

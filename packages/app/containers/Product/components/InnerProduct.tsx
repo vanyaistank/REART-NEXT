@@ -8,6 +8,7 @@ import {
 	Link,
 	ProductImage,
 } from '@Components';
+// TODO: export types
 import { useCart } from 'react-ecommerce-hook';
 
 type Product = {
@@ -25,9 +26,7 @@ type Product = {
 
 interface Props {
 	item: Product;
-	addToCart: (number, boolean) => void;
 }
-
 const InnerProduct: React.SFC<Props> = ({ item }) => {
 	const {
 		id,
@@ -47,12 +46,9 @@ const InnerProduct: React.SFC<Props> = ({ item }) => {
 		</div>
 	);
 
+	const { addToCart } = useCart();
+
 	// const isUnique = false; // temporary: is this item unique? (you can't increase its quantity)
-
-	const { state, addToCart } = useCart();
-	console.log(state, 'STATE???');
-
-	console.log(item, 'ITEM IN INNERPRODUCT');
 
 	return (
 		<Row>

@@ -1,19 +1,12 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import { withRouter } from 'next/router';
-import { mapDispatchToProps } from '@Redux/helpers';
-import { AddToCart } from '@Redux/reducers/Cart/CartActions';
-import { getCart } from '@Redux/reselect';
 import { getProductQuery } from './ProductSchema';
 import InnerProduct from './components/InnerProduct';
 
 class ProductContainer extends PureComponent<any> {
 	render() {
-		console.log(this.props, 'PROPS IN PRODUCTCONTAINER');
-
 		const {
-			addToCart,
 			router: {
 				query: { id },
 			},
@@ -31,9 +24,9 @@ class ProductContainer extends PureComponent<any> {
 					if (loading) return <h1>LOADING...</h1>;
 
 					const { getProductById: product } = data;
+
 					return (
 						<InnerProduct
-							addToCart={addToCart}
 							item={product}
 						/>
 					);
@@ -43,8 +36,4 @@ class ProductContainer extends PureComponent<any> {
 	}
 }
 
-const actionCreators = {
-	addToCart: AddToCart,
-};
-
-export default withRouter(connect(getCart, mapDispatchToProps(actionCreators))(ProductContainer));
+export default withRouter(ProductContainer);

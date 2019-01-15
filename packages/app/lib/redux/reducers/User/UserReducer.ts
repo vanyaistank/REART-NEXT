@@ -30,17 +30,17 @@ type UserActions = ActionType<typeof actions>;
 
 const userReducer = (state = initialState, action: UserActions) => {
 	switch (action.type) {
-		case actionTypes.AUTHORIZATION:
-			return {
-				...state,
-				...action.payload,
-			};
-		case actionTypes.LOGOUT:
-			return {
-				...initialState
-			};
-		default:
-			return state;
+	case actionTypes.AUTHORIZATION:
+		return {
+			...state,
+			...action.payload,
+		};
+	case actionTypes.LOGOUT:
+		return {
+			...initialState,
+		};
+	default:
+		return state;
 	}
 };
 

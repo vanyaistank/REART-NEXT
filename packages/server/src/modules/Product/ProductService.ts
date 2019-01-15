@@ -35,7 +35,6 @@ export default class ProductService {
 			// @ts-ignore
 			.orderBy(`products.${orderBy}`, `${orderDirection}`)
 			.getMany();
-		console.log(products, 'PRODUCTS!!!!!!!!');
 		return products || [];
 	}
 
