@@ -6,5 +6,6 @@ import Recent from './Recent';
 import Filters from './Filters';
 import Products from './ListOfProducts';
 import Product from './Product';
+import Profile from './Profile';
 
-export { Auth, Header, Spotlight, Categories, Recent, Filters, Product, Products };
+export { Auth, Header, Spotlight, Categories, Recent, Filters, Product, Products, Profile };

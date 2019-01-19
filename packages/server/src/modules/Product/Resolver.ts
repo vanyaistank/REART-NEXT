@@ -19,10 +19,10 @@ export class ProductResolver {
 	}
 
 	@Query(() => Product)
-	async getByUserId(
+	async getProductByUserId(
 		@Arg('userId') userId: number
 	) {
-		return await ProductService.getByUserId(userId);
+		return await ProductService.getProductByUserId(userId);
 	}
 
 	@Query(() => Product)

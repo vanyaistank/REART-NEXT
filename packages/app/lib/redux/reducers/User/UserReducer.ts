@@ -12,7 +12,7 @@ export type UserData = {
 	token: string;
 	username?: string;
 	email?: string;
-	ID?: number;
+	id?: number;
 	firstName?: string;
 	lastName?: string;
 };
@@ -21,7 +21,7 @@ export const initialState: UserData = {
 	token: null,
 	username: '',
 	email: '',
-	ID: null,
+	id: null,
 	firstName: '',
 	lastName: '',
 };

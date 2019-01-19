@@ -66,4 +66,9 @@ export class UserResolver {
 	async getUserByUsername(@Arg('username') username: string) {
 		return UserService.getUser({ username });
 	}
+
+	@Query(() => User, { nullable: true })
+	async getUserByUserId(@Arg('userId') id: number) {
+		return UserService.getUser({ id });
+	}
 }

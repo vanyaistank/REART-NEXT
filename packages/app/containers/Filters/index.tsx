@@ -19,7 +19,7 @@ export default class FiltersContainer extends PureComponent<any, State> {
 			currentTarget: { value },
 		} = e;
 		this.setState({ searchText: value });
-	};
+	}
 
 	handleFilters = () =>
 		this.setState(state => ({ showFilters: !state.showFilters }));

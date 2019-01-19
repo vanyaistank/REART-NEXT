@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { userFragment } from '@GraphQL/fragments/userFragment';
 
 export const SignMutation = gql`
     mutation(
@@ -14,9 +15,7 @@ export const SignMutation = gql`
             data {
                 token
                 user {
-                    id
-                    email
-                    username
+                    ...userFragment
                 }
             }
             message

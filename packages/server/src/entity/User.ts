@@ -88,11 +88,11 @@ export class User extends BaseEntity {
     @Column({ type: 'text', nullable: true })
     gender: string;
 
-    @Field(() => [Product])
+    @Field(() => [Product], { nullable: true })
     @OneToMany(() => Product, product => product.user)
     products: Product[];
 
-    @Field(() => [Message])
+    @Field(() => [Message], { nullable: true })
     @OneToMany(() => Message, msg => msg.user)
     messages: Message[];
 }

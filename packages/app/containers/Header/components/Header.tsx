@@ -38,6 +38,7 @@ const FlexWrapper = styled.div`
 		css`
 			display: flex;
 			width: 100%;
+			height: 100%;
 			flex: 1;
 			align-items: center;
 			justify-content: ${props.flex === 'start' ? 'flex-start' : 'flex-end'};

@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import enhanceWithClickOutside from 'react-click-outside';
 import styled from 'styled-components';
 import { colors } from '@Styled/theme';
+import { Heading, Icon } from '@Components';
+import { ListOfIcons } from '../Icon/Icon';
 
 interface Props {
 	children: React.ReactNode;
 	renderTitle: () => React.ReactNode;
+	options: {
+		title: string;
+		icon: ListOfIcons;
+		onClick: () => void;
+	}[];
+}
+
+interface OptionProps {
+	isLogout?: boolean;
+	onClick?: () => void;
+	icon: ListOfIcons;
 }
 
 interface State {
@@ -27,12 +40,42 @@ const DropdownList = styled.div`
 	z-index: 1000;
 `;
 
-// border-color: ${colors.white};
-// border-style: solid;
-// border-width: 2px;
-// border-radius: 10px;
+const ListWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: ${colors.lighterMain};
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
+	:hover {
+		background-color: ${colors.main};
+	 	border-left: 3px solid ${colors.purple};
+	}
+}`;
+
+const Option: React.SFC<OptionProps> = ({ children, icon, isLogout, onClick }) => (
+	<ListWrapper role="button" onClick={onClick}>
+		<Icon awesome icon={icon} />
+		<Heading
+			centered
+			bold
+			white={!isLogout}
+			red={isLogout}
+			marginTop="0px"
+			marginBottom="0px"
+			size="S"
+		>
+			{children}
+		</Heading>
+	</ListWrapper>
+);
 
 class Dropdown extends Component<Props, State> {
+	static defaultProps = {
+		options: [],
+	};
+
 	state = {
 		isOpen: false,
 	};
@@ -48,7 +91,7 @@ class Dropdown extends Component<Props, State> {
 	handleToggle = () => this.setState(state => ({ isOpen: !state.isOpen }));
 
 	render() {
-		const { children, renderTitle } = this.props;
+		const { renderTitle, options } = this.props;
 		const { isOpen } = this.state;
 
 		return (
@@ -56,7 +99,19 @@ class Dropdown extends Component<Props, State> {
 				<div role="button" onClick={this.handleToggle}>
 					{renderTitle()}
 				</div>
-				{isOpen && <DropdownList>{children}</DropdownList>}
+				{isOpen && (
+					<DropdownList>
+						{options.map(({ title, icon, onClick, ...rest }) => (
+							<Option
+								onClick={onClick}
+								icon={icon}
+								{...rest}
+							>
+								{title}
+							</Option>
+						))}
+					</DropdownList>
+				)}
 			</DropdownContainer>
 		);
 	}

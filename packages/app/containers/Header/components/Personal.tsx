@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, media } from '@Styled/theme';
 
-import { Dropdown, HideOnMobile, Icon, Heading } from '@Components';
+import { Dropdown, HideOnMobile, Icon } from '@Components';
 
-interface OptionProps {
-	isLogout?: boolean;
-	children: React.ReactNode;
-	onClick?: () => void;
+interface PersonalProps {
+	handleLogout: () => void;
 }
 
 const IconWrapper = styled.div`
@@ -16,75 +13,54 @@ const IconWrapper = styled.div`
 
 const PersonalWrapper = styled.div`
 	display: flex;
-	margin-right: 60px;
-	${media.tablet`
-		margin-right: 30px;
-	`};
 `;
 
-const ListWrapper = styled.div`
-	padding-top: 10px;
-	padding-bottom: 10px;
-	background-color: ${colors.gray};
-	transition: 0.2s ease-in-out;
-	overflow: hidden;
-	:hover {
-		background-color: ${colors.white};
-		border-color: ${colors.white};
-	}
-}`;
+const Personal: React.SFC<PersonalProps> = ({ handleLogout }) => {
+	const options = [
+		{
+			title: 'My Profile',
+			icon: 'Account',
+		},
+		{
+			title: 'Edit Profile',
+			icon: 'EditAccount',
+		},
+		{
+			title: 'Settings',
+			icon: 'Settings',
+		},
+		{
+			title: 'Sign out',
+			icon: 'SignOut',
+			isLogout: true,
+			onClick: handleLogout,
+		},
+	];
 
-const Option: React.SFC<OptionProps> = ({ children, isLogout, onClick }) => (
-	<ListWrapper role="button" onClick={onClick}>
-		<Heading
-			mono
-			centered
-			bold
-			white={!isLogout}
-			red={isLogout}
-			marginTop="0px"
-			marginBottom="0px"
-			size="S"
-		>
-			{children}
-		</Heading>
-	</ListWrapper>
-);
-
-interface PersonalProps {
-	handleLogout: () => void;
-}
-
-const Personal: React.SFC<PersonalProps> = ({ handleLogout }) => (
-	<HideOnMobile>
-		<PersonalWrapper>
-			<Dropdown
-				renderTitle={() => (
-					<IconWrapper>
-						<Icon icon="Notifications" awesome />
-					</IconWrapper>
-				)}
-			>
-				NOTIFICATIONS!
-			</Dropdown>
-			<IconWrapper>
-				<Icon icon="Chat" awesome />
-			</IconWrapper>
-			<Dropdown
-				renderTitle={() => (
-					<IconWrapper>
-						<Icon icon="Account" awesome />
-					</IconWrapper>
-				)}
-			>
-				<Option onClick={() => {}}>PROFILE</Option>
-				<Option onClick={() => {}}>SETTINGS</Option>
-				<Option isLogout onClick={handleLogout}>
-					LOGOUT
-				</Option>
-			</Dropdown>
-		</PersonalWrapper>
-	</HideOnMobile>
-);
+	return (
+		<HideOnMobile>
+			<PersonalWrapper>
+				<Dropdown
+					renderTitle={() => (
+						<IconWrapper>
+							<Icon icon="Notifications" awesome />
+						</IconWrapper>
+					)}
+				/>
+				<IconWrapper>
+					<Icon icon="Chat" awesome />
+				</IconWrapper>
+				<Dropdown
+					renderTitle={() => (
+						<IconWrapper>
+							<Icon icon="Account" awesome />
+						</IconWrapper>
+					)}
+					options={options}
+				/>
+			</PersonalWrapper>
+		</HideOnMobile>
+	);
+};
 
 export default Personal;

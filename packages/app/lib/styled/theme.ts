@@ -26,7 +26,7 @@ const colors = {
 	purple: '#6C5FC7',
 	darkPurple: '#5346AE',
 	transparent: 'transparent',
-	red: '#8b0000',
+	red: '#d81717',
 	main: '#171717',
 	lighterMain: '#222',
 	border: '#333',

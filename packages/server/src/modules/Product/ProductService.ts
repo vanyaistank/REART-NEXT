@@ -38,7 +38,7 @@ export default class ProductService {
 		return products || [];
 	}
 
-	public static async getByUserId(userId: number): Promise<Product | undefined> {
+	public static async getProductByUserId(userId: number): Promise<Product | undefined> {
 		return Product.findOne({ where: { userId } }) || undefined;
 	}
 

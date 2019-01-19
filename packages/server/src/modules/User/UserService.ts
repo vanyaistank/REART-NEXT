@@ -7,7 +7,7 @@ type oneOfArgs = 'email' | 'username' | 'id';
 
 // https://github.com/Microsoft/TypeScript/issues/5683
 type whereArg = {
-	[key in oneOfArgs]: string;
+	[key in oneOfArgs]: string | number;
 }
 
 export default class UserService {

@@ -2,7 +2,16 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faBars, faComments, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+	faShoppingCart,
+	faBars,
+	faComments,
+	faBell,
+	faUser,
+	faUserEdit,
+	faCog,
+	faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 import {
 	Cancel,
@@ -26,14 +35,19 @@ const icons = {
 
 const faIcons = {
 	Account: faUser,
+	EditAccount: faUserEdit,
 	Cart: faShoppingCart,
 	Chat: faComments,
 	Hamburger: faBars,
 	Notifications: faBell,
+	Settings: faCog,
+	SignOut: faSignOutAlt,
 };
 
 export type ListOfIcons =
 	| 'Account'
+	| 'EditAccount'
+	| 'Settings'
 	| 'Hamburger'
 	| 'Search'
 	| 'Logo'
@@ -44,7 +58,8 @@ export type ListOfIcons =
 	| 'Plus'
 	| 'Question'
 	| 'Chat'
-	| 'Cancel';
+	| 'Cancel'
+	| 'SignOut';
 
 // TODO: add medium, large etc props
 interface Props {
@@ -75,7 +90,7 @@ const IconWrapper = styled.div`
 				`left: ${handlePosition(props.left)};
 				top: ${handlePosition(props.top)};
 				right: ${handlePosition(props.right)};
-				bottom: ${handlePosition(props.bottom)};`	
+				bottom: ${handlePosition(props.bottom)};`
 			)};
 			// let fontawesome handle icon's size
 			${!props.awesome && (
@@ -92,7 +107,7 @@ const Icon: React.SFC<Props> = ({ icon, onClick, awesome, color, size, ...rest }
 	const SelectedIcon = iconsMap[icon];
 
 	if (!SelectedIcon) {
-		throw Error(`theres no such icon: ${icon}`);
+		throw Error(`there's no such icon: ${icon}`);
 	}
 
 	return (

@@ -28,6 +28,7 @@ const Controls: React.SFC<Props> = ({
 			sizeSm={12}
 			deviceOrder={2}
 			marginBottom="30px"
+			justifyContent="center"
 		>
 			<Heading inline lighterGray size="S" onClick={handleFilters}>
 				{showFilters ? '< HIDE FILTERS' : '> SHOW FILTERS'}
@@ -40,6 +41,7 @@ const Controls: React.SFC<Props> = ({
 			sizeSm={12}
 			deviceOrder={1}
 			marginBottom="30px"
+			justifyContent="center"
 		>
 			<Input
 				centered
@@ -58,6 +60,7 @@ const Controls: React.SFC<Props> = ({
 			sizeSm={12}
 			deviceOrder={3}
 			marginBottom="30px"
+			justifyContent="center"
 		>
 			<Select
 				placeholder="Sort by..."
