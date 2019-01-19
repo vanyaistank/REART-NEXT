@@ -19,6 +19,8 @@ interface Props extends colorsPartialInterface {
 	uppercase?: boolean;
 	marginTop?: string;
 	marginBottom?: string;
+	marginLeft?: string;
+	marginRight?: string;
 	onClick?: () => void;
 	centered?: boolean;
 	color?: string; // default value for styledProps
@@ -52,6 +54,8 @@ const StyledHeading = styled(Heading)`
 			text-transform: ${props.uppercase && 'uppercase'};
 			margin-top: ${handleSize(props.marginTop)};
 			margin-bottom: ${handleSize(props.marginBottom)};
+			margin-left: ${handleSize(props.marginLeft)};
+			margin-right: ${handleSize(props.marginRight)};
 			text-align: ${props.centered && 'center'};
 		`;
 	}};

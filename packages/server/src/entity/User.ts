@@ -26,12 +26,6 @@ export class SignInput {
 
     @Field({ nullable: true })
     username?: string;
-
-    @Field({ nullable: true })
-    firstName?: string;
-
-    @Field({ nullable: true })
-    lastName?: string;
 }
 
 @ArgsType()
@@ -77,14 +71,6 @@ export class User extends BaseEntity {
     @Field()
     @Column({ type: 'text' })
     password: string;
-
-    @Field()
-    @Column({ type: 'text' })
-    firstName: string;
-
-    @Field()
-    @Column({ type: 'text' })
-    lastName: string;
 
     @Field()
     @Column({ type: 'text', default: 'fan' })

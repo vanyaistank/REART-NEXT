@@ -1,19 +1,15 @@
 import gql from 'graphql-tag';
 
-export const SignMutation = gql`	
+export const SignMutation = gql`
     mutation(
-        $email: String!, 
-        $username: String, 
-        $password: String!, 
-        $firstName: String, 
-        $lastName: String
+        $email: String!,
+        $username: String,
+        $password: String!
     ) {
-        sign(input: { 
-            email: $email, 
-            username: $username, 
-            password: $password, 
-            firstName: $firstName, 
-            lastName: $lastName 
+        sign(input: {
+            email: $email,
+            username: $username,
+            password: $password
         }){
             data {
                 token
@@ -21,8 +17,6 @@ export const SignMutation = gql`
                     id
                     email
                     username
-	                firstName
-	                lastName
                 }
             }
             message

@@ -23,14 +23,40 @@ interface Props extends FormikProps<SignFormValues> {
 	loading: boolean;
 }
 
-const SignInForm = (props: Props) => {
+const ConditionalBottomPart = ({ isLogin, switchScreen }) => {
+	const heading = isLogin
+		? 'Already have an account?'
+		: 'Don\'t have an account?';
+
+	const linkText = isLogin ? 'SIGN UP' : 'SIGN IN';
+
+	return (
+		<Col
+			size={12}
+			marginTop="30px"
+		>
+			<Heading size="S" lighterGray inline>
+				{heading}
+			</Heading>
+			<Link onClick={switchScreen} size="S">
+				{linkText + ' '}
+			</Link>
+		</Col>
+	);
+};
+
+const SignForm = (props: Props) => {
 	const {
+		isLogin,
+		switchScreen,
 		toggleModal,
 		showModal,
 		loading,
 		handleSubmit,
 		handleReset,
 	} = props;
+
+	const heading = isLogin ? 'SIGN IN' : 'SIGN UP';
 
 	return (
 		<Modal
@@ -58,12 +84,19 @@ const SignInForm = (props: Props) => {
 							marginBottom="30px"
 						>
 							<Heading mono uppercase size="L">
-								sign in
+								{heading}
 							</Heading>
 							<Heading mono uppercase size="L">
 								to re-art
 							</Heading>
 						</Col>
+						{!isLogin && (
+							<FormInput
+								field="username"
+								label="Username"
+								{...props}
+							/>
+						)}
 						<FormInput
 							field="email"
 							label="Email"
@@ -82,25 +115,18 @@ const SignInForm = (props: Props) => {
 								purple={!loading}
 								onClick={() => {}}
 							>
-								SIGN IN
+								{heading}
 							</Button>
 						</Col>
-						<Col
-							size={12}
-							marginTop="30px"
-						>
-							<Heading size="S" lighterGray inline>
-								Don't have an account?{'  '}
-							</Heading>
-							<Link href="/signup" size="S">
-								SIGN UP
-							</Link>
-						</Col>
+						<ConditionalBottomPart
+							isLogin={isLogin}
+							switchScreen={switchScreen}
+						/>
 					</form>
 				</Col>
 			</Row>
 		</Modal>
 	);
-}
+};
 
-export default SignInForm;
+export default SignForm;
