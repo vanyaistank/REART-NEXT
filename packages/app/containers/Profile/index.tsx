@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Query } from 'react-apollo';
 import { withRouter } from 'next/router';
 import { getUserByUserId } from './profileSchema';
 
-class ProductContainer extends PureComponent<any> {
+import ProfileHead from './components/ProfileHead';
+
+class ProfileContainer extends PureComponent<any> {
 	render() {
 		const {
 			router: {
@@ -22,13 +24,17 @@ class ProductContainer extends PureComponent<any> {
 					if (error) return <h1>ERROR!</h1>;
 					if (loading) return <h1>LOADING...</h1>;
 
-					const { getUserByUsername } = data;
-					console.log(getUserByUsername, 'getUserByUsername');
-					return <h1>HELLO WORLD</h1>;
+					const { getUserByUsername: user } = data;
+					console.log(user, 'getUserByUsername');
+					return (
+						<Fragment>
+							<ProfileHead user={user} />
+						</Fragment>
+					);
 				}}
 			</Query>
 		);
 	}
 }
 
-export default withRouter(ProductContainer);
+export default withRouter(ProfileContainer);

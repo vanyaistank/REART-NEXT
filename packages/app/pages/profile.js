@@ -3,7 +3,7 @@ import { Main } from '@Components';
 import { Profile } from '@Containers';
 
 const ProductPage = () => (
-	<Main title="Home Page">
+	<Main title="Home Page" fullWidth>
 		<Profile />
 	</Main>
 );

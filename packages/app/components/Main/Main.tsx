@@ -16,6 +16,7 @@ interface Props {
 	title?: string;
 	modal?: boolean;
 	hideHeader?: boolean;
+	fullWidth?: boolean;
 }
 
 const Main: React.SFC<Props> = ({
@@ -42,7 +43,7 @@ Main.defaultProps = {
 };
 
 const StyledMain = styled(Main)`
-	max-width: 1200px;
+	max-width: ${props => !props.fullWidth && '1200px'};
 	margin: 0 auto;
 `;
 
