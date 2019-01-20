@@ -6,25 +6,26 @@ import { colors } from '@Styled/theme';
 const customStyles = {
 	option: base => ({
 		...base,
+		width: '100%',
 		borderRadius: '3px',
 		borderBottom: '1px solid white',
 		color: colors.white,
 		fontWeight: 700,
 		fontFamily: 'Lato, sans-serif',
-		backgroundColor: colors.white,
+		backgroundColor: colors.lighterMain,
 		padding: 20,
 		outline: 'none',
 		cursor: 'pointer',
 		transition: '0.2s ease-in-out background-color',
 		':hover': {
-			backgroundColor: lighten(0.1, colors.white),
+			backgroundColor: lighten(0.1, colors.lighterMain),
 		},
 	}),
 	control: base => ({
 		...base,
 		border: `1px solid ${colors.lighterGray} !important`,
 		outline: 'none',
-		boxShadow: `0 0 0 1px ${colors.white} !important`,
+		boxShadow: `0 0 0 1px ${colors.main} !important`,
 		':active': {
 			boxShadow: `0 0 0 1px ${colors.lighterGray}`,
 		},
