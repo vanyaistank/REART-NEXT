@@ -13,6 +13,10 @@ interface Props {
 	token?: string; // user's token
 }
 
+interface StyledHeaderProps {
+	noBottomMargin: boolean;
+}
+
 const StyledHeader = styled.header`
 	display: flex;
 	justify-content: space-between;
@@ -22,7 +26,7 @@ const StyledHeader = styled.header`
 	padding-left: 24px;
 	padding-right: 24px;
 	height: 82px;
-	margin-bottom: 50px;
+	margin-bottom: ${(props: StyledHeaderProps) => !props.noBottomMargin && '50px'};
 	${media.mobile`
 		padding-left: 12px;
 		padding-right: 12px;
@@ -58,10 +62,11 @@ const Header: React.SFC<Props> = ({
 	toggleModal,
 	toggleMenu,
 	handleLogout,
+	noBottomMargin,
 	token,
 }) => (
 	<Fragment>
-		<StyledHeader>
+		<StyledHeader noBottomMargin={noBottomMargin}>
 			<FlexWrapper flex="start">
 				<Icon icon="Hamburger" onClick={toggleMenu} awesome />
 			</FlexWrapper>

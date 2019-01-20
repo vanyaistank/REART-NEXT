@@ -11,6 +11,7 @@ import {
 	faUserEdit,
 	faCog,
 	faSignOutAlt,
+	faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -42,6 +43,7 @@ const faIcons = {
 	Notifications: faBell,
 	Settings: faCog,
 	SignOut: faSignOutAlt,
+	Geo: faMapMarkerAlt,
 };
 
 export type ListOfIcons =
@@ -59,7 +61,8 @@ export type ListOfIcons =
 	| 'Question'
 	| 'Chat'
 	| 'Cancel'
-	| 'SignOut';
+	| 'SignOut'
+	| 'Geo';
 
 // TODO: add medium, large etc props
 interface Props {

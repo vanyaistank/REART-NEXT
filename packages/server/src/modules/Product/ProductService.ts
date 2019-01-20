@@ -1,5 +1,5 @@
 import { getRepository, SelectQueryBuilder } from 'typeorm';
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, Int } from 'type-graphql';
 import { Product, ProductInput } from '../../entity/Product';
 import { getByIdsInput } from './Resolver';
 import { User } from '../../entity/User';
@@ -15,26 +15,35 @@ export class SearchProductInput {
 
 	@Field(() => String, { nullable: true })
 	orderDirection?: 'DESC' | 'ASC' | undefined;
+
+	@Field(() => Int, { nullable: true })
+	id?: number;
 }
 
 export default class ProductService {
 	public static async getProducts({
 		searchValue = '',
 		orderBy = 'id',
-		orderDirection = 'DESC'
+		orderDirection = 'DESC',
+		id,
 	}: SearchProductInput): Promise<Array<Product>> {
 		const search = '%' + searchValue + '%';
 
-		const products = await getRepository(Product)
-			.createQueryBuilder('products')
-			.leftJoinAndSelect('products.user', 'user')
-			.leftJoinAndSelect('products.category', 'category')
+		let products = await getRepository(Product)
+			.createQueryBuilder('products');
+		if (id) {
+			products = await products.innerJoinAndSelect('products.user', 'user', 'user.id = :id', { id });
+		} else {
+			products = await products.leftJoinAndSelect('products.user', 'user')
+		}
+
+		products = await products.leftJoinAndSelect('products.category', 'category')
 			.where('products.name like :search', { search })
 			.orWhere('products.description like :search', { search })
-			// .orWhere('products.author like :search', { search })
 			// @ts-ignore
 			.orderBy(`products.${orderBy}`, `${orderDirection}`)
 			.getMany();
+		// @ts-ignore
 		return products || [];
 	}
 

@@ -1,9 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Query } from 'react-apollo';
 import { withRouter } from 'next/router';
-import { getUserByUserId } from './profileSchema';
+import { getUserByUsername } from './profileSchema';
 
 import ProfileHead from './components/ProfileHead';
+import {Products} from '@Containers';
 
 class ProfileContainer extends PureComponent<any> {
 	render() {
@@ -15,7 +16,7 @@ class ProfileContainer extends PureComponent<any> {
 
 		return (
 			<Query
-				query={getUserByUserId}
+				query={getUserByUsername}
 				variables={{
 					username,
 				}}
@@ -29,6 +30,7 @@ class ProfileContainer extends PureComponent<any> {
 					return (
 						<Fragment>
 							<ProfileHead user={user} />
+							<Products userId={user.id} />
 						</Fragment>
 					);
 				}}

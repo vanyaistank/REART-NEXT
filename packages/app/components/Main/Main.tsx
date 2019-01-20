@@ -17,6 +17,7 @@ interface Props {
 	modal?: boolean;
 	hideHeader?: boolean;
 	fullWidth?: boolean;
+	noBottomMargin?: boolean;
 }
 
 const Main: React.SFC<Props> = ({
@@ -25,9 +26,10 @@ const Main: React.SFC<Props> = ({
 	children,
 	modal,
 	hideHeader = false,
+	noBottomMargin = false,
 }) => (
 	<StyledCanvas>
-		{!hideHeader && <Header />}
+		{!hideHeader && <Header noBottomMargin={noBottomMargin} />}
 		<main className={className}>
 			<Head>
 				<title>{title}</title>

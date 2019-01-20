@@ -1,3 +1,4 @@
+import Avatar from './Avatar';
 import Button from './Button';
 import Card from './Card';
 import Dropdown from './Dropdown';
@@ -22,6 +23,7 @@ import {
 } from './Media';
 
 export {
+	Avatar,
 	Button,
 	Card,
 	Col,
