@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Query } from 'react-apollo';
 
-import { getProductsQuery } from './ProductsQueries';
+import { getProductsQuery } from './productsSchema';
 import { Row, Product } from '@Components';
 
 interface Props {

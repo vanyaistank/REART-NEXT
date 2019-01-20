@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { Row, Title, Product } from '@Components';
 
 // temporary
-import { getProductsQuery } from '../ListOfProducts/ProductsQueries';
+import { getProductsQuery } from '../ListOfProducts/productsSchema';
 
 export default class Categories extends PureComponent {
 	renderSlides = slides => (
