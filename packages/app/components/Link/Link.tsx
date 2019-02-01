@@ -15,6 +15,8 @@ interface Props extends colorsPartialInterface {
 	size?: string;
 	marginTop?: string;
 	marginBottom?: string;
+	marginRight?: string;
+	marginLeft?: string;
 	className?: string;
 	href?: string;
 	prefetch?: boolean;
@@ -62,6 +64,8 @@ const StyledLink = styled(LinkComponent)`
 			color: ${styledProps(colors, 'color')};
 			margin-top: ${handleSize(props.marginTop)};
 			margin-bottom: ${handleSize(props.marginBottom)};
+			margin-left: ${handleSize(props.marginLeft)};
+			margin-right: ${handleSize(props.marginRight)};
 			text-decoration: underline;
 			will-change: text-decoration;
 			:hover {

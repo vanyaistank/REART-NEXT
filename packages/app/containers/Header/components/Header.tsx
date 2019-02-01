@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
-import { colors, media } from '@Styled/theme';
+import Router from 'next/router';
 
+import { colors, media } from '@Styled/theme';
 import { Link, Icon } from '@Components';
 import { Authorization, Personal, TopMenu } from '../components';
 
@@ -11,6 +12,7 @@ interface Props {
 	handleLogout: () => void;
 	showMenu: boolean;
 	token?: string; // user's token
+	noBottomMargin?: boolean;
 }
 
 interface StyledHeaderProps {
@@ -57,6 +59,11 @@ const LogoWrapper = styled.div`
 	justify-content: center;
 `;
 
+const UploadWrapper = styled.div`
+	display: flex;
+	align-items: center;
+`;
+
 const Header: React.SFC<Props> = ({
 	showMenu,
 	toggleModal,
@@ -76,7 +83,13 @@ const Header: React.SFC<Props> = ({
 				</Link>
 			</LogoWrapper>
 			<FlexWrapper flex="end">
-				<Icon awesome icon="Cart" />
+				{token && (
+					<UploadWrapper onClick={() => Router.push('/upload')}>
+						<Icon icon="Upload" awesome />
+						<Link marginLeft="10px">UPLOAD</Link>
+					</UploadWrapper>
+				)}
+				{/*<Icon awesome icon="Cart" />*/}
 				{token ? (
 					<Personal handleLogout={handleLogout} />
 				) : (

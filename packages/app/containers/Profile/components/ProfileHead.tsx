@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '@Styled/theme';
 import { Avatar, Heading, Row, Icon } from '@Components';
-import { Products } from '@Containers';
 
 interface Props {
 	background?: string;

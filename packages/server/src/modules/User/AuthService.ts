@@ -22,7 +22,7 @@ export class SignResponse {
 	message: string;
 
 	@Field()
-	data: SignData
+	data: SignData;
 }
 
 export default class AuthService {

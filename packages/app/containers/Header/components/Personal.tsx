@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import { Dropdown, HideOnMobile, Icon } from '@Components';
@@ -11,7 +11,7 @@ const IconWrapper = styled.div`
 	margin-left: 30px;
 `;
 
-const PersonalWrapper = styled.div`
+const Wrapper = styled.div`
 	display: flex;
 `;
 
@@ -39,7 +39,7 @@ const Personal: React.SFC<PersonalProps> = ({ handleLogout }) => {
 
 	return (
 		<HideOnMobile>
-			<PersonalWrapper>
+			<Wrapper>
 				<Dropdown
 					renderTitle={() => (
 						<IconWrapper>
@@ -58,7 +58,7 @@ const Personal: React.SFC<PersonalProps> = ({ handleLogout }) => {
 					)}
 					options={options}
 				/>
-			</PersonalWrapper>
+			</Wrapper>
 		</HideOnMobile>
 	);
 };

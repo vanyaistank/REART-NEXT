@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+	faArrowUp,
 	faShoppingCart,
 	faBars,
 	faComments,
@@ -44,6 +45,7 @@ const faIcons = {
 	Settings: faCog,
 	SignOut: faSignOutAlt,
 	Geo: faMapMarkerAlt,
+	Upload: faArrowUp,
 };
 
 export type ListOfIcons =
@@ -62,7 +64,8 @@ export type ListOfIcons =
 	| 'Chat'
 	| 'Cancel'
 	| 'SignOut'
-	| 'Geo';
+	| 'Geo'
+	| 'Upload';
 
 // TODO: add medium, large etc props
 interface Props {

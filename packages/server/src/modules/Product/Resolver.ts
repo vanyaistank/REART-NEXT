@@ -1,4 +1,4 @@
-import {Resolver, Mutation, Query, Arg, InputType, ID, Field, Ctx, Authorized} from 'type-graphql';
+import { Resolver, Mutation, Query, Arg, InputType, ID, Field, Ctx, Authorized } from 'type-graphql';
 import { Product, ProductInput } from '../../entity/Product';
 import ProductService, { SearchProductInput } from './ProductService';
 import { MyContext } from '../../types/Context';
@@ -6,42 +6,42 @@ import { MyContext } from '../../types/Context';
 @InputType()
 export class getByIdsInput {
 	@Field(() => [ID])
-	ids: [number]
+	ids: [number];
 }
 
 @Resolver(Product)
 export class ProductResolver {
 	@Query(() => [Product])
 	async getProducts(
-		@Arg('input') input: SearchProductInput
+		@Arg('input') input: SearchProductInput,
 	) {
 		return await ProductService.getProducts(input);
 	}
 
 	@Query(() => Product)
 	async getProductByUserId(
-		@Arg('userId') userId: number
+		@Arg('userId') userId: number,
 	) {
 		return await ProductService.getProductByUserId(userId);
 	}
 
 	@Query(() => Product)
 	async getProductById(
-		@Arg('id') id: number
+		@Arg('id') id: number,
 	) {
 		return await ProductService.getById(id);
 	}
 
 	@Query(() => [Product])
 	async getProductsByIds(
-		@Arg('ids') ids: getByIdsInput
+		@Arg('ids') ids: getByIdsInput,
 	) {
 		return await ProductService.getByIds(ids);
 	}
 
 	@Query(() => [Product])
 	async getByCategory(
-		@Arg('categoryId') categoryId: number
+		@Arg('categoryId') categoryId: number,
 	) {
 		return await ProductService.getByCategory(categoryId);
 	}
@@ -50,7 +50,7 @@ export class ProductResolver {
 	@Authorized()
 	async addProduct(
 		@Arg('input') input: ProductInput,
-		@Ctx() { req, userLoader }: MyContext
+		@Ctx() { req, userLoader }: MyContext,
 	) {
 		if (req.decodedToken) {
 			// @ts-ignore
@@ -64,14 +64,14 @@ export class ProductResolver {
 
 	@Mutation(() => Product)
 	async updateProduct(
-		@Arg('input') input: ProductInput
+		@Arg('input') input: ProductInput,
 	) {
 		return await ProductService.update(input);
 	}
 
 	@Mutation(() => Boolean)
 	async deleteProduct(
-		@Arg('id') id: number
+		@Arg('id') id: number,
 	) {
 		return await ProductService.delete(id);
 	}

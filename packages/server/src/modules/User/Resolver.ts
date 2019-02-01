@@ -1,9 +1,11 @@
-import {Resolver, Mutation, Query, Arg, Ctx, Authorized} from 'type-graphql';
+import { Resolver, Mutation, Query, Arg, Ctx, Authorized } from 'type-graphql';
 import { User, SignInput, UserInput } from '../../entity/User';
 import UserService from './UserService';
 import AuthService, { SignResponse } from './AuthService';
 
 import { MyContext } from '../../types/Context';
+
+
 
 @Resolver(User)
 export class UserResolver {
